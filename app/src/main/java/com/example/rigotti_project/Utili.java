@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -109,6 +111,6 @@ public class Utili {
     }
 
 
-
+    // LOGOUT 
 
 }
