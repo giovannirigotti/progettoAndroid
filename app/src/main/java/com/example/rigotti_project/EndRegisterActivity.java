@@ -110,7 +110,7 @@ public class EndRegisterActivity extends AppCompatActivity {
 
 
                     //Vado al login;
-                    Intent i = new Intent(EndRegisterActivity.this, MainActivity.class);
+                    Intent i = new Intent(EndRegisterActivity.this, LoginActivity.class);
                     i.putExtra("email", _email);
                     startActivity(i);
 

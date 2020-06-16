@@ -60,8 +60,9 @@ public class HomeActivity extends AppCompatActivity {
                 //vado alla activity modifica_dati;
                 return true;
             case R.id.item_logout:
-                //eseguo logout
                 //vado alla activity login;
+                Intent i = Utili.doLogout(HomeActivity.this);
+                startActivity(i);
                 return true;
 
 

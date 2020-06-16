@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -33,7 +32,6 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //controllo dati inseriti
-
 
                 if (checkRegisterData()) {
                     //se i dati sono ok li passo alla prossima activity

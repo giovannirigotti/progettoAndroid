@@ -1,20 +1,44 @@
 package com.example.rigotti_project;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.util.regex.Pattern;
 
 public class Utili {
-    // VARIABILE DI STATO
-    // Per comodità sarà l'email così da facilitare le query sull'utente.
-    public static String STATUS;
+
+    public static final Integer NEVER_LOGGED = -1;
+    public static final Integer WAS_LOGGED = 0;
+    public static final Integer LOGGED = 1;
+    // VARIABILE DI STATO:
+    // -1 --> mai loggato
+    //  0 --> appena effettuato logout
+    //  1 --> loggato
+
+    private static Integer STATUS = -1;
+    private static  String EMAIL;
+
+    // get e set STATUS
+    public static Integer getSTATUS() {
+        return STATUS;
+    }
+    public static void setSTATUS(Integer STATUS) {
+        Utili.STATUS = STATUS;
+    }
+
+    // get e set EMAIL
+    public static String getEMAIL() {
+        return EMAIL;
+    }
+    public static void setEMAIL(String EMAIL) {
+        Utili.EMAIL = EMAIL;
+    }
 
     // METODI PER CONTROLLARE I DATI INSERITI DALL'UTENTE
 
@@ -111,6 +135,12 @@ public class Utili {
     }
 
 
-    // LOGOUT 
+    // LOGOUT
+
+    public static Intent doLogout (Activity activity){
+        Utili.setSTATUS(Utili.WAS_LOGGED);
+        Intent i = new Intent(activity, LoginActivity.class);
+        return i;
+    }
 
 }
