@@ -27,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
         profile_image = (ImageView) findViewById(R.id.home_profile_image);
 
-        String foto = getIntent.getStringExtra("foto");
+        String foto = PersonalData.getFOTO();
 
         bitmap = Utili.StringToBitMap(foto);
 
@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    // AGGIUNGO MENU ALLA ACTIVITY
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -42,16 +43,17 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
+    //GESTISCO MENU NELLA ACTIVITY
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item_account:
                 //vado alla activity account;
-                Utili.doToast(this,"Funziona1");
+                Utili.doToast(this, "Funziona1");
                 return true;
             case R.id.item_home:
                 //vado alla activity home;
-                Utili.doToast(this,"Funziona2");
+                Utili.doToast(this, "Funziona2");
                 return true;
             case R.id.item_campionati:
                 //vado alla activity campionati;

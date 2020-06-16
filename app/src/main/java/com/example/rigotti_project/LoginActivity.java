@@ -44,13 +44,12 @@ public class LoginActivity extends AppCompatActivity {
                 if (checkLoginData()) {
                     //SETTO LO "STATO"
                     Utili.setSTATUS(Utili.LOGGED);
-                    Utili.setEMAIL(s_email);
 
                     //Creo nuova intent per passare alla home page
                     Intent i = new Intent(LoginActivity.this, HomeActivity.class);
 
                     //PRENDO I DATI DAL DB (da mandare alla prossima activity)
-                    Cursor cursor = db.getUser(Utili.getEMAIL());
+                    Cursor cursor = db.getUser(s_email);
 
                     if (cursor.moveToFirst()) {
                         Integer id = cursor.getInt(0);
@@ -65,23 +64,14 @@ public class LoginActivity extends AppCompatActivity {
                         String auto = cursor.getString(9);
                         String foto = cursor.getString(10);
                         String password = cursor.getString(11);
-                        i.putExtra("id", id);
-                        i.putExtra("nome", nome);
-                        i.putExtra("cognome", cognome);
-                        i.putExtra("email", email);
-                        i.putExtra("data", data);
-                        i.putExtra("nazione", nazione);
-                        i.putExtra("numero", numero);
-                        i.putExtra("preferito", preferito);
-                        i.putExtra("odiato", odiato);
-                        i.putExtra("auto", auto);
-                        i.putExtra("foto", foto);
-                        i.putExtra("password", password);
+
+                        //SETTO I DATI IN LOCALE PRESI DAL DB
+                        PersonalData.setAllData(id,nome,cognome,email,data,nazione,numero,preferito,odiato,auto,foto,password);
 
                     }
-
                     //Vado alla nuova activity
                     startActivity(i);
+
                 } else {
                     //login errato
                     Utili.doToast(LoginActivity.this, "Email o password sbagliati");
@@ -103,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean checkLoginData() {
 
-        s_email = email.getText().toString();
-        s_password = password.getText().toString();
+        s_email = email.getText().toString().trim();
+        s_password = password.getText().toString().trim();
 
         String err;
         //se l'utente non ha inserito l'email o la password

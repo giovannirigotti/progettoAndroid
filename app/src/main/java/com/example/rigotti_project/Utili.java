@@ -16,13 +16,13 @@ public class Utili {
     public static final Integer NEVER_LOGGED = -1;
     public static final Integer WAS_LOGGED = 0;
     public static final Integer LOGGED = 1;
+
     // VARIABILE DI STATO:
     // -1 --> mai loggato
     //  0 --> appena effettuato logout
     //  1 --> loggato
 
-    private static Integer STATUS = -1;
-    private static  String EMAIL;
+    private static Integer STATUS = NEVER_LOGGED;
 
     // get e set STATUS
     public static Integer getSTATUS() {
@@ -32,13 +32,6 @@ public class Utili {
         Utili.STATUS = STATUS;
     }
 
-    // get e set EMAIL
-    public static String getEMAIL() {
-        return EMAIL;
-    }
-    public static void setEMAIL(String EMAIL) {
-        Utili.EMAIL = EMAIL;
-    }
 
     // METODI PER CONTROLLARE I DATI INSERITI DALL'UTENTE
 
@@ -139,6 +132,7 @@ public class Utili {
 
     public static Intent doLogout (Activity activity){
         Utili.setSTATUS(Utili.WAS_LOGGED);
+        PersonalData.clearUserData();
         Intent i = new Intent(activity, LoginActivity.class);
         return i;
     }
