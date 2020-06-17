@@ -1,15 +1,16 @@
-package com.example.rigotti_project;
+package com.example.rigotti_project.Support;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.io.ByteArrayOutputStream;
+import com.example.rigotti_project.Activity.AccounActivity;
+import com.example.rigotti_project.Activity.HomeActivity;
+import com.example.rigotti_project.Activity.LoginActivity;
+import com.example.rigotti_project.R;
+
 import java.util.regex.Pattern;
 
 public class Utili {

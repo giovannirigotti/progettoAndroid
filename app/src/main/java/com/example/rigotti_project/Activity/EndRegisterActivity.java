@@ -1,4 +1,4 @@
-package com.example.rigotti_project;
+package com.example.rigotti_project.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +16,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.example.rigotti_project.Support.DatabaseHelper;
+import com.example.rigotti_project.Support.ImageManager;
+import com.example.rigotti_project.R;
+import com.example.rigotti_project.Support.Utili;
 
 import java.io.IOException;
 

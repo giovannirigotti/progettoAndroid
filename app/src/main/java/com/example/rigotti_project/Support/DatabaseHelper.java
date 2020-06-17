@@ -1,4 +1,4 @@
-package com.example.rigotti_project;
+package com.example.rigotti_project.Support;
 
 import android.content.ContentValues;
 import android.content.Context;

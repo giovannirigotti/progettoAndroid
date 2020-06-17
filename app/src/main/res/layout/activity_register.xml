@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     tools:ignore="LabelFor"
-    tools:context=".RegisterActivity">
+    tools:context=".Activity.RegisterActivity">
 
     <EditText
         android:id="@+id/et_nome"

@@ -1,10 +1,11 @@
-package com.example.rigotti_project;
+package com.example.rigotti_project.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -20,6 +21,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.rigotti_project.Support.DatabaseHelper;
+import com.example.rigotti_project.Support.ImageManager;
+import com.example.rigotti_project.Support.PersonalData;
+import com.example.rigotti_project.R;
+import com.example.rigotti_project.Support.Utili;
 
 import java.io.IOException;
 
@@ -104,6 +111,97 @@ public class AccounActivity extends AppCompatActivity {
             }
         });
 
+        btn_cambia_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPasswordDialog(v);
+            }
+        });
+
+        btn_elimina_account.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteDialog(v);
+            }
+        });
+
+    }
+
+    private void showPasswordDialog(View v) {
+        //APRO DIALOG PASSWORD
+        AlertDialog.Builder builder = new AlertDialog.Builder(AccounActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.password_dialog, null);
+
+        EditText old_pass, new_pass, confirm_pass;
+        Button btn_aggiorna,btn_annulla;
+
+        old_pass = (EditText) view.findViewById(R.id.et_old_pass);
+        new_pass = (EditText) view.findViewById(R.id.et_new_pass);
+        confirm_pass = (EditText) view.findViewById(R.id.et_confirm_pass);
+
+        btn_aggiorna = (Button) view.findViewById(R.id.btn_up_password);
+        btn_annulla = (Button) view.findViewById(R.id.btn_annulla_password);
+
+        btn_aggiorna.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Logica cambio password;
+
+                Utili.doToast(v.getContext(),"Password aggiornata correttamente.");
+                Intent i = new Intent(v.getContext(), AccounActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btn_annulla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utili.doToast(v.getContext(),"Password NON aggiornata.");
+                Intent i = new Intent(v.getContext(), AccounActivity.class);
+                startActivity(i);
+            }
+        });
+
+        builder.setTitle("Aggiorna password").setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
+    private void showDeleteDialog(View v) {
+        //APRO DIALOG PASSWORD
+        AlertDialog.Builder builder = new AlertDialog.Builder(AccounActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.delete_account_dialog, null);
+
+        Button btn_elimina,btn_annulla;
+
+        btn_elimina = (Button) view.findViewById(R.id.btn_conferma_elimina);
+        btn_annulla = (Button) view.findViewById(R.id.btn_annulla_eliminazione);
+
+        btn_elimina.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Logica eliminazione account;
+
+                //Cancello dati, faccio logount;
+
+                Utili.doToast(v.getContext(),"Account eliminato.");
+                Utili.doLogout(AccounActivity.this);
+            }
+        });
+
+        btn_annulla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Utili.doToast(v.getContext(),"Password NON aggiornata.");
+                Intent i = new Intent(v.getContext(), AccounActivity.class);
+                startActivity(i);
+            }
+        });
+
+        builder.setTitle("Elimina account").setView(view);
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
     }
 

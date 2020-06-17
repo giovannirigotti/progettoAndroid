@@ -1,15 +1,19 @@
-package com.example.rigotti_project;
+package com.example.rigotti_project.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
+
+import com.example.rigotti_project.Support.ImageManager;
+import com.example.rigotti_project.Support.PersonalData;
+import com.example.rigotti_project.R;
+import com.example.rigotti_project.Support.Utili;
 
 
 public class HomeActivity extends AppCompatActivity {

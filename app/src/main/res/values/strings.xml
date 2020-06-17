@@ -31,4 +31,10 @@
     <string name="btn_cambia_passsword_text">Aggiorna la password</string>
     <string name="btn_elimina_account_text">Elimina account</string>
     <string name="btn_aggiorna_dati_gioco_text">Aggiorna dati</string>
+    <string name="title_cambia_password_text">Aggiorna password</string>
+    <string name="old_password_text">Inserisci la tua vecchia password</string>
+    <string name="text_new_password">Inserisci la nuova password</string>
+    <string name="annulla_text">Annulla</string>
+    <string name="text_eliminazione_account">Confermi l\'eliminazione del tuo account?</string>
+    <string name="text_conferma">Conferma</string>
 </resources>
