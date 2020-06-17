@@ -92,7 +92,7 @@ public class Utili {
     public static boolean validateSimpleText(String text, int maxLenght) {
         // Se il testo inserito dall'utente è composto solo da caratteri
         // alfabetici ed è più corto di "maxLenght" allora ok altrimento no.
-        String regex = "^[a-zA-Z0-9_ ]*$";
+        String regex = "^[a-zA-Z_ ]*$";
         return (text.length() <= maxLenght && text.matches(regex)) ? true : false;
     }
 

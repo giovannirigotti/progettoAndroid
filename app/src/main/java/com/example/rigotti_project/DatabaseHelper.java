@@ -81,16 +81,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE user.email = " + email;
         String[] columns = {C_ID, C_NOME, C_COGNOME, C_EMAIL, C_DATA, C_NAZIONE, C_NUMERO, C_CIRCUITO_P, C_CIRCUITO_O, C_AUTO, C_FOTO, C_PASSWORD};
         String selection = C_EMAIL + "=?";
-        String[] selectionArgs = { email };
-        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs,null,null,null);
+        String[] selectionArgs = {email};
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs, null, null, null);
         return cursor;
     }
 
-    public void updateImage(String image){
+    public void updateImage(String image) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(C_FOTO, image);
-        db.update(TABLE_NAME, cv, C_ID + "= ?", new String[] {PersonalData.getID().toString()});
+        db.update(TABLE_NAME, cv, C_ID + "= ?", new String[]{PersonalData.getID().toString()});
+        db.close();
+    }
+
+    public void updateDatiGioco(Integer numero, String preferito, String odiato, String auto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(C_NUMERO, numero);
+        cv.put(C_CIRCUITO_P, preferito);
+        cv.put(C_CIRCUITO_O, odiato);
+        cv.put(C_AUTO, auto);
+        db.update(TABLE_NAME, cv, C_ID + "= ?", new String[]{PersonalData.getID().toString()});
         db.close();
     }
 }
