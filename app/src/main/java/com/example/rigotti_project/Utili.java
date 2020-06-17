@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -28,6 +29,7 @@ public class Utili {
     public static Integer getSTATUS() {
         return STATUS;
     }
+
     public static void setSTATUS(Integer STATUS) {
         Utili.STATUS = STATUS;
     }
@@ -90,10 +92,9 @@ public class Utili {
     public static boolean validateSimpleText(String text, int maxLenght) {
         // Se il testo inserito dall'utente è composto solo da caratteri
         // alfabetici ed è più corto di "maxLenght" allora ok altrimento no.
-        String regex = "^[A-Za-z]+$";
+        String regex = "^[a-zA-Z0-9_ ]*$";
         return (text.length() <= maxLenght && text.matches(regex)) ? true : false;
     }
-
 
 
     // METODI PER FACILITARE LA VITA AL PROGRAMMATORE
@@ -103,38 +104,44 @@ public class Utili {
     }
 
 
-
-    // METODI PER CONVERTIRE IMMAGINI Bitmap in String e viceversa
-
-    public static String BitMapToString(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-
-        byte[] imageByteArray = byteArrayOutputStream.toByteArray();
-        String encodedImage = Base64.encodeToString(imageByteArray, Base64.DEFAULT);
-
-        return encodedImage;
-    }
-
-    public static Bitmap StringToBitMap(String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
-    }
-
-
     // LOGOUT
 
-    public static Intent doLogout (Activity activity){
+    public static void doLogout(Activity activity) {
         Utili.setSTATUS(Utili.WAS_LOGGED);
         PersonalData.clearUserData();
         Intent i = new Intent(activity, LoginActivity.class);
-        return i;
+        ((Activity) activity).startActivity(i);
     }
 
+    //MENU
+
+    public static boolean setMenu(Activity activity, MenuItem item) {
+        Integer id = item.getItemId();
+        Intent intent;
+        switch (id) {
+            case R.id.item_account:
+                //vado alla activity account;
+                intent = new Intent(activity, AccounActivity.class);
+                ((Activity) activity).startActivity(intent);
+                return true;
+            case R.id.item_home:
+                //vado alla activity home;
+                intent = new Intent(activity, HomeActivity.class);
+                ((Activity) activity).startActivity(intent);
+                return true;
+            case R.id.item_campionati:
+                //vado alla activity campionati;
+
+                return true;
+            case R.id.item_modifica_dati:
+                //vado alla activity modifica_dati;
+
+                return true;
+            case R.id.item_logout:
+                //eseguo logout: cancello dati, setto stato su "WAS_LOGGED" e vado alla activity login;
+                Utili.doLogout(activity);
+                return true;
+        }
+        return false;
+    }
 }

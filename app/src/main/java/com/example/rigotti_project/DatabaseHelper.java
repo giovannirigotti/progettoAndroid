@@ -85,6 +85,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionArgs,null,null,null);
         return cursor;
     }
+
+    public void updateImage(String image, String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(C_FOTO, image);
+        db.update(TABLE_NAME, cv, C_EMAIL + "= ?", new String[] {email});
+        db.close();
+
+    }
 }
 
 

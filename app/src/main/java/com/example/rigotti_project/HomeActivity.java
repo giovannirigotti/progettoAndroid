@@ -23,13 +23,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent getIntent = getIntent();
-
         profile_image = (ImageView) findViewById(R.id.home_profile_image);
 
         String foto = PersonalData.getFOTO();
 
-        bitmap = Utili.StringToBitMap(foto);
+        bitmap = ImageManager.StringToBitMap(foto);
 
         profile_image.setImageBitmap(bitmap);
 
@@ -44,31 +42,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     //GESTISCO MENU NELLA ACTIVITY
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.item_account:
-                //vado alla activity account;
-                Utili.doToast(this, "Funziona1");
-                return true;
-            case R.id.item_home:
-                //vado alla activity home;
-                Utili.doToast(this, "Funziona2");
-                return true;
-            case R.id.item_campionati:
-                //vado alla activity campionati;
-                return true;
-            case R.id.item_modifica_dati:
-                //vado alla activity modifica_dati;
-                return true;
-            case R.id.item_logout:
-                //vado alla activity login;
-                Intent i = Utili.doLogout(HomeActivity.this);
-                startActivity(i);
-                return true;
-
-
-        }
-        return super.onOptionsItemSelected(item);
+        // Ritorno True se il quando premo su un Item questo è nello switch case
+        // Ritrono "super.onOptionsItemSelected(item)" altrimenti
+        return (Utili.setMenu(HomeActivity.this,item)) ? true : super.onOptionsItemSelected(item);
     }
 }

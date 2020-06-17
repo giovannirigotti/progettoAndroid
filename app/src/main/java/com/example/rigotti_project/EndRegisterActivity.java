@@ -26,7 +26,7 @@ public class EndRegisterActivity extends AppCompatActivity {
 
     //Immagine
     private Bitmap bitmap;
-    ImageView profile_image;
+    private ImageView profile_image;
 
     //Bottoni
     private Button btn_registrati, btn_immagine;
@@ -36,13 +36,8 @@ public class EndRegisterActivity extends AppCompatActivity {
 
     //Stringhe / Ineteri
     private Integer _numero;
-    private String _nazione, _circuito_preferito, _circuito_odiato, _auto, _foto;
+    private String _s_numero,_nazione, _circuito_preferito, _circuito_odiato, _auto, _foto;
     private String _nome, _cognome, _email, _pass, _data;
-
-    private int OK = 0;
-
-    private static final int IMAGE_PICK_CODE = 1000;
-    private static final int PERMISSION_CODE = 1001;
 
 
     @Override
@@ -78,15 +73,15 @@ public class EndRegisterActivity extends AppCompatActivity {
                         //premission not granted, request it
                         String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
                         //show pop up for runtime permission
-                        requestPermissions(permissions, PERMISSION_CODE);
+                        requestPermissions(permissions, ImageManager.PERMISSION_CODE);
 
                     } else {
                         //permission already granted
-                        chooseFile();
+                        ImageManager.chooseFile(EndRegisterActivity.this);
                     }
                 } else {
                     //system os is less then marshmellow
-                    chooseFile();
+                    ImageManager.chooseFile(EndRegisterActivity.this);
                 }
             }
         });
@@ -96,14 +91,7 @@ public class EndRegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Se l'utente inserisce i dati correttamente posso procedere
                 if (checkEndRegisterData()) {
-                    _numero = Integer.parseInt(numero.getText().toString().trim());
-                    _nazione = nazione.getText().toString().trim();
-                    _circuito_preferito = circuito_preferito.getText().toString().trim();
-                    _circuito_odiato = circuito_odiato.getText().toString().trim();
-                    _auto = auto.getText().toString().trim();
-
-                    //Converto bitmap in strings per salvare la foto.
-                    _foto = Utili.BitMapToString(bitmap);
+                    _numero = Integer.parseInt(_s_numero);
 
                     //salva dati sul DB;
                     db.addUser(_nome, _cognome, _email, _data, _nazione, _numero, _circuito_preferito, _circuito_odiato, _auto, _foto, _pass);
@@ -122,19 +110,20 @@ public class EndRegisterActivity extends AppCompatActivity {
     }
 
     public boolean checkEndRegisterData() {
-        String _numero, _nazione, _circuito_preferito, _circuito_odiato, _auto;
-        _numero = numero.getText().toString();
-        _nazione = nazione.getText().toString();
-        _circuito_preferito = circuito_preferito.getText().toString();
-        _circuito_odiato = circuito_odiato.getText().toString();
+
+        _s_numero = numero.getText().toString().trim();
+        _nazione = nazione.getText().toString().trim();
+        _circuito_preferito = circuito_preferito.getText().toString().trim();
+        _circuito_odiato = circuito_odiato.getText().toString().trim();
         _auto = auto.getText().toString();
+
         String err;
-        if (_numero.isEmpty() || _nazione.isEmpty() || _circuito_odiato.isEmpty() || _circuito_preferito.isEmpty() || _auto.isEmpty() || OK != 1) {
-            err = "Inserisci tutti, se non hai preferenze sulle piste scrivi quello che ti pare,\n Assicurati di aver caricato un'immagine profilo!";
+        if (_s_numero.isEmpty() || _nazione.isEmpty() || _circuito_odiato.isEmpty() || _circuito_preferito.isEmpty() || _auto.isEmpty() || _foto.isEmpty()) {
+            err = "Inserisci tutti, se non hai preferenze sulle piste scrivi quello che ti pare,\nAssicurati di aver caricato un'immagine profilo!";
             Utili.doToast(this, err);
             return false;
-        } else if (Utili.validateNumero(_numero) < 0) {
-            Utili.doToast(this, _numero);
+        } else if (Utili.validateNumero(_s_numero) < 0) {
+            Utili.doToast(this, _s_numero);
             err = "Assicurati di aver inserito solo numeri nel campo \'Numero di gara\'\nOss: numeri solo tra 0 e 999";
             Utili.doToast(this, err);
             return false;
@@ -150,8 +139,8 @@ public class EndRegisterActivity extends AppCompatActivity {
             err = "Assicurati di aver inserito solo caratteri alfabetici nel campo \'Circuito odiato\'\nLunghezza massima 40 caratteri";
             Utili.doToast(this, err);
             return false;
-        } else if (!Utili.validateSimpleText(_auto, 30)) {
-            err = "Assicurati di aver inserito solo caratteri alfabetici nel campo \'Auto preferita\'\nLunghezza massima 30 caratteri";
+        } else if (!Utili.validateSimpleText(_circuito_odiato, 40)) {
+            err = "Assicurati di aver inserito al massimo 40 caratteri";
             Utili.doToast(this, err);
             return false;
         }
@@ -159,23 +148,17 @@ public class EndRegisterActivity extends AppCompatActivity {
         return true;
     }
 
-    private void chooseFile() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        OK = 1;
-        startActivityForResult(intent, IMAGE_PICK_CODE);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+        if (resultCode == RESULT_OK && requestCode == ImageManager.IMAGE_PICK_CODE) {
             // set image to image view
             Uri filePath = data.getData();
 
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 profile_image.setImageBitmap(bitmap);
+                _foto = ImageManager.BitMapToString(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -188,10 +171,10 @@ public class EndRegisterActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case PERMISSION_CODE: {
+            case ImageManager.PERMISSION_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    chooseFile();
+                    ImageManager.chooseFile(EndRegisterActivity.this);
                 } else {
                     // permission was dained
                     Utili.doToast(this, "Permesso negato");

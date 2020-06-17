@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                     //Creo nuova intent per passare alla home page
                     Intent i = new Intent(LoginActivity.this, HomeActivity.class);
 
-                    //PRENDO I DATI DAL DB (da mandare alla prossima activity)
+                    //PRENDO I DATI DAL DB (per salvarli in locale)
                     Cursor cursor = db.getUser(s_email);
 
                     if (cursor.moveToFirst()) {

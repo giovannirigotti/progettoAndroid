@@ -18,10 +18,11 @@
     <string name="btn_image_text">+</string>
     <string name="text_up_image">Carica un\'immagine</string>
     <string name="label_numero_di_gara">Numero di gara</string>
-    <string name="label_nazionalita">Nazionalità</string>
+    <string name="label_nazionalita">Nazione</string>
     <string name="label_circuito_preferito">Circuito preferito</string>
     <string name="label_circuito_pi_odiato">Circuito più odiato</string>
     <string name="label_auto_preferita">Auto preferita</string>
     <string name="btn_registrati_text">Registrati</string>
     <string name="immagine_profilo_text">Immagine_profilo</string>
+    <string name="btn_cambia_immagine">Aggiorna</string>
 </resources>

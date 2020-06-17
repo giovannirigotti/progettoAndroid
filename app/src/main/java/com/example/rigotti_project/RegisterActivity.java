@@ -42,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
                     i.putExtra("cognome", cognome.getText().toString());
                     i.putExtra("email", email.getText().toString());
                     i.putExtra("password", password.getText().toString());
-                    i.putExtra("data", password.getText().toString());
+                    i.putExtra("data", data.getText().toString());
 
                     startActivity(i);
                 }
