@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">beautiful title</string>
+    <string name="app_name">Title</string>
     <string name="label_login_text">Effettua il login</string>
     <string name="label_registrazione_text">Non hai un account?\nRegistrati!</string>
     <string name="btn_login_text">Login</string>
@@ -17,12 +17,18 @@
     <string name="tv_data">Data di nascita</string>
     <string name="btn_image_text">+</string>
     <string name="text_up_image">Carica un\'immagine</string>
-    <string name="label_numero_di_gara">Numero di gara</string>
+    <string name="label_numero_di_gara">N° di gara</string>
     <string name="label_nazionalita">Nazione</string>
     <string name="label_circuito_preferito">Circuito preferito</string>
     <string name="label_circuito_pi_odiato">Circuito più odiato</string>
     <string name="label_auto_preferita">Auto preferita</string>
     <string name="btn_registrati_text">Registrati</string>
     <string name="immagine_profilo_text">Immagine_profilo</string>
-    <string name="btn_cambia_immagine">Aggiorna</string>
+    <string name="btn_cambia_immagine">Aggiorna immagine</string>
+    <string name="acc_dati_personali_text">Dati Personali</string>
+    <string name="acc_dati_gioco_text">Dati di gioco</string>
+    <string name="btn_gestisci_dati_gioco_text">Gestisci dati di gioco</string>
+    <string name="btn_cambia_passsword_text">Aggiorna la password</string>
+    <string name="btn_elimina_account_text">Elimina account</string>
+    <string name="btn_aggiorna_dati_gioco_text">Aggiorna dati</string>
 </resources>

@@ -4,31 +4,79 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccounActivity">
+    tools:context=".AccounActivity"
+    tools:ignore="LabelFor">
 
-    <TextView
-        android:id="@+id/acc_nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/label_nome_text"
-        android:textAlignment="textStart"
+    <Button
+        android:id="@+id/btn_elimina_account"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#F44336"
+        android:text="@string/btn_elimina_account_text"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.141"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07999998" />
+        app:layout_constraintTop_toBottomOf="@+id/acc_dati_personali"
+        app:layout_constraintVertical_bias="0.90999997" />
+
+    <Button
+        android:id="@+id/btn_cambia_password"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#00BCD4"
+        android:text="@string/btn_cambia_passsword_text"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acc_dati_personali"
+        app:layout_constraintVertical_bias="0.739" />
 
     <TextView
-        android:id="@+id/acc_cognome"
+        android:id="@+id/acc_dati_personali"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/label_cognome_text"
-        android:textAlignment="textStart"
+        android:text="@string/acc_dati_personali_text"
+        android:textColor="#000000"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/acc_nome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14999998" />
+        app:layout_constraintVertical_bias="0.055" />
+
+    <ImageView
+        android:id="@+id/acc_profile_image"
+        android:layout_width="140dp"
+        android:layout_height="131dp"
+        android:contentDescription="@string/immagine_profilo_text"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.163"
+        app:srcCompat="@drawable/ic_image_black_24dp" />
+
+    <Button
+        android:id="@+id/btn_cambia_foto"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#00BCD4"
+        android:text="@string/btn_cambia_immagine"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.856"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acc_profile_image"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/acc_data"
@@ -39,35 +87,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/acc_cognome"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.22000003" />
+        app:layout_constraintVertical_bias="0.311" />
 
-    <ImageView
-        android:id="@+id/acc_profile_image"
-        android:layout_width="118dp"
-        android:layout_height="118dp"
-        android:contentDescription="@string/immagine_profilo_text"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.853"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.07"
-        app:srcCompat="@drawable/ic_image_black_24dp" />
-
-    <Button
-        android:id="@+id/btn_cambia_foto"
-        android:layout_width="118dp"
+    <TextView
+        android:id="@+id/acc_cognome"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#00BCD4"
-        android:text="@string/btn_cambia_immagine"
-        android:textColor="#000000"
+        android:text="@string/label_cognome_text"
+        android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.853"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/acc_profile_image"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="@+id/acc_nome"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.231" />
 
     <TextView
         android:id="@+id/acc_email"
@@ -78,7 +109,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/acc_nazione"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36" />
+        app:layout_constraintVertical_bias="0.471" />
+
+    <TextView
+        android:id="@+id/acc_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/label_nome_text"
+        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.123"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.155" />
 
     <TextView
         android:id="@+id/acc_nazione"
@@ -89,6 +133,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/acc_data"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.29000002" />
+        app:layout_constraintVertical_bias="0.391" />
+
+    <Button
+        android:id="@+id/btn_dati_gioco"
+        android:layout_width="320dp"
+        android:layout_height="70dp"
+        android:backgroundTint="#00BCD4"
+        android:text="@string/btn_gestisci_dati_gioco_text"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/acc_dati_personali"
+        app:layout_constraintVertical_bias="0.563" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

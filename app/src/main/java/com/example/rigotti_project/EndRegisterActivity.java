@@ -44,6 +44,7 @@ public class EndRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_register);
+        setTitle("Registrazione pt.2");
 
         db = new DatabaseHelper(this);
         Intent i = getIntent();

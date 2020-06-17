@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,10 +30,11 @@ public class AccounActivity extends AppCompatActivity {
 
     //VIEW DELLA PAGINA
     //TextView
-    private TextView nome,cognome,email,data,nazione;
+    private TextView nome, cognome, email, data, nazione;
 
     //Bottoni
-    private Button btn_cambia;
+    private Button btn_aggiorna_immagine, btn_dati_gioco, btn_cambia_password, btn_elimina_account;
+
 
     //Immagine
     private ImageView profile_image;
@@ -43,6 +45,7 @@ public class AccounActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accoun);
+        setTitle("Account");
 
         db = new DatabaseHelper(this);
 
@@ -55,7 +58,10 @@ public class AccounActivity extends AppCompatActivity {
 
         profile_image = (ImageView) findViewById(R.id.acc_profile_image);
 
-        btn_cambia = (Button) findViewById(R.id.btn_cambia_foto);
+        btn_aggiorna_immagine = (Button) findViewById(R.id.btn_cambia_foto);
+        btn_dati_gioco = (Button) findViewById(R.id.btn_dati_gioco);
+        btn_cambia_password = (Button) findViewById(R.id.btn_cambia_password);
+        btn_elimina_account = (Button) findViewById(R.id.btn_elimina_account);
 
         //POPOLO VIEW CON DATI UTENTE
         nome.setText(PersonalData.getNOME());
@@ -68,7 +74,7 @@ public class AccounActivity extends AppCompatActivity {
         //      a Bitmap tramite il metodo Utili.StringToBitMap(stringa)
         profile_image.setImageBitmap(ImageManager.StringToBitMap(PersonalData.getFOTO()));
 
-        btn_cambia.setOnClickListener(new View.OnClickListener() {
+        btn_aggiorna_immagine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //check runtime permission
@@ -89,6 +95,16 @@ public class AccounActivity extends AppCompatActivity {
                 }
             }
         });
+
+        btn_dati_gioco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(AccounActivity.this,ManageDataActivity.class);
+                startActivity(i);
+            }
+        });
+
+
     }
 
     //GESTIONE IMMAGINE
@@ -109,7 +125,7 @@ public class AccounActivity extends AppCompatActivity {
                 PersonalData.setFOTO(new_img);
 
                 //SALVO NUOVA IMMAGINE SUL DB
-                db.updateImage(new_img,PersonalData.getEMAIL());
+                db.updateImage(new_img);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -148,7 +164,7 @@ public class AccounActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         // Ritorno True se il quando premo su un Item questo è nello switch case
         // Ritrono "super.onOptionsItemSelected(item)" altrimenti
-        return (Utili.setMenu(AccounActivity.this,item)) ? true : super.onOptionsItemSelected(item);
+        return (Utili.setMenu(AccounActivity.this, item)) ? true : super.onOptionsItemSelected(item);
     }
 
 }

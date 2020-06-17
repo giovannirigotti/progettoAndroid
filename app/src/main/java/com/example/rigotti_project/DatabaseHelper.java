@@ -86,13 +86,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void updateImage(String image, String email){
+    public void updateImage(String image){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(C_FOTO, image);
-        db.update(TABLE_NAME, cv, C_EMAIL + "= ?", new String[] {email});
+        db.update(TABLE_NAME, cv, C_ID + "= ?", new String[] {PersonalData.getID().toString()});
         db.close();
-
     }
 }
 
