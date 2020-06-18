@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -106,7 +107,7 @@ public class AccounActivity extends AppCompatActivity {
         btn_dati_gioco.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(AccounActivity.this,ManageDataActivity.class);
+                Intent i = new Intent(AccounActivity.this, ManageDataActivity.class);
                 startActivity(i);
             }
         });
@@ -132,8 +133,8 @@ public class AccounActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(AccounActivity.this);
         View view = getLayoutInflater().inflate(R.layout.password_dialog, null);
 
-        EditText old_pass, new_pass, confirm_pass;
-        Button btn_aggiorna,btn_annulla;
+        final EditText old_pass, new_pass, confirm_pass;
+        Button btn_aggiorna, btn_annulla;
 
         old_pass = (EditText) view.findViewById(R.id.et_old_pass);
         new_pass = (EditText) view.findViewById(R.id.et_new_pass);
@@ -146,17 +147,24 @@ public class AccounActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Logica cambio password;
+                String o_pass, n_pass, c_pass;
+                o_pass = old_pass.getText().toString().trim();
+                n_pass = new_pass.getText().toString().trim();
+                c_pass = confirm_pass.getText().toString().trim();
 
-                Utili.doToast(v.getContext(),"Password aggiornata correttamente.");
-                Intent i = new Intent(v.getContext(), AccounActivity.class);
-                startActivity(i);
+                if (checkPassword(v.getContext(), o_pass, n_pass, c_pass)) {
+                    db.updatePassword(n_pass);
+                    Utili.doToast(v.getContext(), "Password aggiornata correttamente.");
+                    Intent i = new Intent(v.getContext(), AccounActivity.class);
+                    startActivity(i);
+                }
             }
         });
 
         btn_annulla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utili.doToast(v.getContext(),"Password NON aggiornata.");
+                Utili.doToast(v.getContext(), "Password NON aggiornata.");
                 Intent i = new Intent(v.getContext(), AccounActivity.class);
                 startActivity(i);
             }
@@ -168,12 +176,36 @@ public class AccounActivity extends AppCompatActivity {
 
     }
 
+    private boolean checkPassword(Context context, String vecchia_password, String nuova_password, String conferma_password) {
+        String err = "";
+        if (vecchia_password.isEmpty() || nuova_password.isEmpty() || conferma_password.isEmpty()) {
+            err = "Riempi tutti i campi per aggiornare la password.";
+            Utili.doToast(context, err);
+            return false;
+        } else {
+            if (!vecchia_password.equals(PersonalData.getPASSWORD())) {
+                err = "La \"vecchia\" password immessa non è corretta (password attuale)";
+                Utili.doToast(context, err);
+                return false;
+            } else if (!Utili.validatePassword(nuova_password)) {
+                err = "La nuova password immessa non ha i requisiti minimi di sicurezza:\nLunga almeno 8 caratteri con maiuscole, minuscole, numeri e caratteri speciali.";
+                Utili.doToast(context, err);
+                return false;
+            } else if (!nuova_password.equals(conferma_password)) {
+                err = "La nuova password e la sua conferma non corrispondono.\nAssicurati di immettere correttamente la password!";
+                Utili.doToast(context, err);
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void showDeleteDialog(View v) {
         //APRO DIALOG PASSWORD
         AlertDialog.Builder builder = new AlertDialog.Builder(AccounActivity.this);
         View view = getLayoutInflater().inflate(R.layout.delete_account_dialog, null);
 
-        Button btn_elimina,btn_annulla;
+        Button btn_elimina, btn_annulla;
 
         btn_elimina = (Button) view.findViewById(R.id.btn_conferma_elimina);
         btn_annulla = (Button) view.findViewById(R.id.btn_annulla_eliminazione);
@@ -182,18 +214,20 @@ public class AccounActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Logica eliminazione account;
-
-                //Cancello dati, faccio logount;
-
-                Utili.doToast(v.getContext(),"Account eliminato.");
-                Utili.doLogout(AccounActivity.this);
+                try {
+                    db.deleteUser();
+                    Utili.doToast(v.getContext(), "Account eliminato.");
+                    Utili.doLogout(AccounActivity.this);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Utili.doToast(v.getContext(), "Account non eliminato.");
+                }
             }
         });
 
         btn_annulla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utili.doToast(v.getContext(),"Password NON aggiornata.");
                 Intent i = new Intent(v.getContext(), AccounActivity.class);
                 startActivity(i);
             }
@@ -264,5 +298,6 @@ public class AccounActivity extends AppCompatActivity {
         // Ritrono "super.onOptionsItemSelected(item)" altrimenti
         return (Utili.setMenu(AccounActivity.this, item)) ? true : super.onOptionsItemSelected(item);
     }
+
 
 }

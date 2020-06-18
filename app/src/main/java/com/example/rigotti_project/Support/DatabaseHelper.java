@@ -64,6 +64,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public void deleteUser() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_NAME, C_ID + "= ?", new String[]{PersonalData.getID().toString()});
+        db.close();
+    }
+
     public boolean checkUserPassword(String email, String password) {
         String[] columns = {C_ID};
         SQLiteDatabase db = getReadableDatabase();
@@ -90,6 +97,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(C_FOTO, image);
+        db.update(TABLE_NAME, cv, C_ID + "= ?", new String[]{PersonalData.getID().toString()});
+        db.close();
+    }
+
+    public void updatePassword(String nuova_password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(C_PASSWORD, nuova_password);
         db.update(TABLE_NAME, cv, C_ID + "= ?", new String[]{PersonalData.getID().toString()});
         db.close();
     }
