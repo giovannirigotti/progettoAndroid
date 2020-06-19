@@ -44,6 +44,7 @@ public class HomeActivity extends AppCompatActivity {
         bitmap = ImageManager.StringToBitMap(foto);
         profile_image.setImageBitmap(bitmap);
 
+
         //Imposto dati utente
         nome = (TextView) findViewById(R.id.home_nome);
         nazione = (TextView) findViewById(R.id.home_nazione);

@@ -7,10 +7,19 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.rigotti_project.Activity.AccounActivity;
+import com.example.rigotti_project.Activity.ChampionshipListActivity;
+import com.example.rigotti_project.Activity.EditDataActivity;
 import com.example.rigotti_project.Activity.HomeActivity;
 import com.example.rigotti_project.Activity.LoginActivity;
 import com.example.rigotti_project.R;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.regex.Pattern;
 
 public class Utili {
@@ -132,11 +141,13 @@ public class Utili {
                 return true;
             case R.id.item_campionati:
                 //vado alla activity campionati;
-
+                intent = new Intent(activity, ChampionshipListActivity.class);
+                ((Activity) activity).startActivity(intent);
                 return true;
             case R.id.item_modifica_dati:
                 //vado alla activity modifica_dati;
-
+                intent = new Intent(activity, EditDataActivity.class);
+                ((Activity) activity).startActivity(intent);
                 return true;
             case R.id.item_logout:
                 //eseguo logout: cancello dati, setto stato su "WAS_LOGGED" e vado alla activity login;
@@ -144,5 +155,28 @@ public class Utili {
                 return true;
         }
         return false;
+    }
+
+    //JSON HELPER
+    public static String getCampionati(Activity activity) {
+        String res = "";
+        InputStream is = activity.getResources().openRawResource(R.raw.campionati);
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+        try {
+            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            int n;
+            while ((n = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, n);
+            }
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Utili.doToast(activity,"Impossibile caricare dati.");
+            return "error";
+        }
+
+        res = writer.toString();
+        return res;
     }
 }

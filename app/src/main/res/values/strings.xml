@@ -43,4 +43,5 @@
     <string name="text_vai_a_modifica_dati">Vai a modifica dati</string>
     <string name="home_info_campionato_text">Visualizza la lista dei campionati disponibili, vedi tutte le loro informazioni e iscriviti per vincere</string>
     <string name="home_info_modifica_taxt">Activity di test per testare processo in background e notifiche all\'utente.</string>
+    <string name="todo_text">TODO</string>
 </resources>
