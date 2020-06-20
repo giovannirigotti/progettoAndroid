@@ -6,14 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".Activity.ChampionshipActivity">
 
-    <TextView
-        android:id="@+id/test_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/test_text"
+    <ImageView
+        android:id="@+id/camp_logo"
+        android:layout_width="103dp"
+        android:layout_height="97dp"
+        android:contentDescription="@string/logo_campionato_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.226" />
+        app:layout_constraintVertical_bias="0.047"
+        app:srcCompat="@drawable/ic_image_black_24dp" />
+
+    <TextView
+        android:id="@+id/camp_nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nome_campionato_text"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.672"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.09" />
 </androidx.constraintlayout.widget.ConstraintLayout>

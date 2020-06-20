@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rigotti_project.R;
@@ -15,21 +16,44 @@ import com.example.rigotti_project.Support.Utili;
 
 public class ChampionshipActivity extends AppCompatActivity {
 
-    TextView tv_id;
+    //TextView
+    private TextView tv_nome;
+
+    //ImageView
+    private ImageView iv_logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_championship);
-
-        //NOME CAMPIONATO?
         setTitle("Campionato");
 
         Intent i = getIntent();
-        Integer id_campionato = i.getIntExtra("id_campionato",-1);
 
-        tv_id = (TextView) findViewById(R.id.test_id);
-        tv_id.setText(id_campionato.toString());
+        if(!i.hasExtra("position") || !i.hasExtra("nome") || !i.hasExtra("logo")){
+            Utili.doToast(this,"Campionato non disponibile.");
+            Intent new_i = new Intent(this, HomeActivity.class);
+            startActivity(new_i);
+        }
+
+        Integer position = i.getIntExtra("position",-1);
+        Integer id_logo = i.getIntExtra("logo", -1);
+        String nome = i.getStringExtra("nome");
+
+        if(position == -1 || id_logo == -1){
+            Utili.doToast(this,"Campionato non disponibile.");
+            Intent new_i = new Intent(this, HomeActivity.class);
+            startActivity(new_i);
+        }
+
+        tv_nome = (TextView) findViewById(R.id.camp_nome);
+        iv_logo = (ImageView) findViewById(R.id.camp_logo);
+
+        tv_nome.setText(nome);
+        iv_logo.setImageResource(id_logo);
+
+
+
 
 
     }

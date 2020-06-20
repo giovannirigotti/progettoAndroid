@@ -45,4 +45,6 @@
     <string name="home_info_modifica_taxt">Activity di test per testare processo in background e notifiche all\'utente.</string>
     <string name="todo_text">TODO</string>
     <string name="test_text">test</string>
+    <string name="nome_campionato_text">Nome campionato</string>
+    <string name="logo_campionato_text">Logo del campionato</string>
 </resources>
