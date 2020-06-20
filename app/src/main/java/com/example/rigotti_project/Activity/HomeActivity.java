@@ -57,6 +57,8 @@ public class HomeActivity extends AppCompatActivity {
         campionati = (Button) findViewById(R.id.btn_home_campionati);
         modifica = (Button) findViewById(R.id.btn_home_modifica);
 
+
+
         campionati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

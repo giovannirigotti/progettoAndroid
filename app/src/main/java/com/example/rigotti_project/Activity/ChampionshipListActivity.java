@@ -4,17 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.CustomChampionshipListView;
@@ -24,9 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ChampionshipListActivity extends AppCompatActivity {
 
@@ -34,7 +30,9 @@ public class ChampionshipListActivity extends AppCompatActivity {
 
     private ListView lv;
 
-    private ArrayList<String> imgID;
+    private ArrayList<Integer> champID;
+
+    private ArrayList<Integer> imgID;
 
     private ArrayList<String> listaCampionati;
 
@@ -46,71 +44,64 @@ public class ChampionshipListActivity extends AppCompatActivity {
 
         json = Utili.getCampionati(this);
 
-        if (!json.equals("error")) {
-            listaCampionati = new ArrayList<>();
-            imgID = new ArrayList<>();
-            lv = (ListView) findViewById(R.id.lista_campionati);
-            new GetContacts().execute();
-        }
+        ReadData();
+
+        CustomChampionshipListView custom = new CustomChampionshipListView(ChampionshipListActivity.this, listaCampionati, imgID);
+        lv.setAdapter(custom);
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                OpenCampionato(ChampionshipListActivity.this,position);
+            }
+        });
+
 
     }
 
+    public void ReadData() {
+        if (!json.equals("error")) {
+            listaCampionati = new ArrayList<>();
+            imgID = new ArrayList<>();
+            champID = new ArrayList<>();
+            lv = (ListView) findViewById(R.id.lista_campionati);
+            try {
+                final JSONObject jsonObj = new JSONObject(json);
 
-    private class GetContacts extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Utili.doToast(ChampionshipListActivity.this, "Json Data is downloading");
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            if (!json.equals("error")) {
-                try {
-                    final JSONObject jsonObj = new JSONObject(json);
-
-                    final JSONArray campionati = jsonObj.getJSONArray("campionati");
+                final JSONArray campionati = jsonObj.getJSONArray("campionati");
 
 
-                    for (int i = 0; i < campionati.length(); i++) {
-                        JSONObject c = campionati.getJSONObject(i);
+                for (int i = 0; i < campionati.length(); i++) {
+                    JSONObject c = campionati.getJSONObject(i);
 
 
-                        String id = c.getString("id");
-                        final String nome = c.getString("nome");
-                        final String logo = c.getString("logo");
+                    Integer id = c.getInt("id");
+                    String nome = c.getString("nome");
+                    String logo_png = c.getString("logo");
 
+                    String logo = Utili.getNameLogo(logo_png);
+                    Log.e("LOGO", logo);
 
-                        listaCampionati.add(nome);
-                        imgID.add(logo);
-                    }
+                    Integer id_immagine = Utili.getResId(this, logo);
+                    Log.e("ID IMMAGINE", id_immagine.toString());
 
-                } catch (final JSONException e) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Utili.doToast(getApplicationContext(), "Json parsing error: " + e.getMessage());
-                        }
-                    });
+                    champID.add(id);
+                    listaCampionati.add(nome);
+                    imgID.add(id_immagine);
                 }
-            } else {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Utili.doToast(getApplicationContext(), "Couldn't get json from server. Check LogCat for possible errors!");
-                    }
-                });
+
+            } catch (final JSONException e) {
+                e.printStackTrace();
+                Utili.doToast(this, "Errore nella lettura dei dati");
             }
 
-            return null;
         }
+    }
 
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            CustomChampionshipListView custom = new CustomChampionshipListView(ChampionshipListActivity.this, listaCampionati, imgID);
-            lv.setAdapter(custom);
-        }
+    public void OpenCampionato(Activity context, int position){
+        Intent i = new Intent(context, ChampionshipActivity.class);
+        i.putExtra("id_campionato", champID.get(position));
+        startActivity(i);
     }
 
     // AGGIUNGO MENU ALLA ACTIVITY

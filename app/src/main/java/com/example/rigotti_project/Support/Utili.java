@@ -3,6 +3,7 @@ package com.example.rigotti_project.Support;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -179,4 +180,15 @@ public class Utili {
         res = writer.toString();
         return res;
     }
+
+    public static String getNameLogo(String logo_png){
+        return logo_png.split("\\.")[0];
+    }
+
+    public static Integer getResId(Activity context, String nome_risorsa){
+        Log.println(Log.ERROR, "nome_risorsa", nome_risorsa);
+        int resourceID = context.getResources().getIdentifier(nome_risorsa, "drawable", context.getPackageName());
+        return resourceID;
+    }
+
 }
