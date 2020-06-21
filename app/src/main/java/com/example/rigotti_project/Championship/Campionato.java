@@ -2,6 +2,8 @@ package com.example.rigotti_project.Championship;
 
 import java.util.ArrayList;
 
+
+
 public class Campionato {
 
     private Integer id;
@@ -95,6 +97,16 @@ public class Campionato {
     }
 
     // endregion
+
+    // region METODI UTILI
+
+    public Gara getGara(Integer position) {
+        Gara gara = new Gara();
+        gara = calendario.get(position);
+        return gara;
+    }
+
+    //endregion
 
 }
 

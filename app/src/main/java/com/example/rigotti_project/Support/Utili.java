@@ -12,6 +12,7 @@ import com.example.rigotti_project.Activity.ChampionshipListActivity;
 import com.example.rigotti_project.Activity.EditDataActivity;
 import com.example.rigotti_project.Activity.HomeActivity;
 import com.example.rigotti_project.Activity.LoginActivity;
+import com.example.rigotti_project.Championship.ListaCampionati;
 import com.example.rigotti_project.R;
 
 import java.io.BufferedReader;
@@ -36,6 +37,8 @@ public class Utili {
 
     private static Integer STATUS = NEVER_LOGGED;
 
+    public static ListaCampionati listaCampionati;
+
     // get e set STATUS
     public static Integer getSTATUS() {
         return STATUS;
@@ -44,7 +47,6 @@ public class Utili {
     public static void setSTATUS(Integer STATUS) {
         Utili.STATUS = STATUS;
     }
-
 
     // METODI PER CONTROLLARE I DATI INSERITI DALL'UTENTE
 
@@ -124,7 +126,7 @@ public class Utili {
         ((Activity) activity).startActivity(i);
     }
 
-    //MENU
+    // region MENU
 
     public static boolean setMenu(Activity activity, MenuItem item) {
         Integer id = item.getItemId();
@@ -157,6 +159,8 @@ public class Utili {
         }
         return false;
     }
+
+    // endregion
 
     //JSON HELPER
     public static String getCampionati(Activity activity) {

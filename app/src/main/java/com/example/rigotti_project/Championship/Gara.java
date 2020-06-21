@@ -5,11 +5,21 @@ public class Gara {
     private String data;
     private String circuito;
 
+    // region COSTRUTTORI
+
+    public Gara(){
+        this.seq = null;
+        this.data = null;
+        this.circuito = null;
+    }
+
     public Gara(String seq, String data, String circuito) {
         this.seq = seq;
         this.data = data;
         this.circuito = circuito;
     }
+
+    // endregion
 
     // region GETTERS SETTERS
 

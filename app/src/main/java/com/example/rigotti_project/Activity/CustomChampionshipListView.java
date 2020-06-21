@@ -1,4 +1,4 @@
-package com.example.rigotti_project.Support;
+package com.example.rigotti_project.Activity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,14 +20,14 @@ import java.util.ArrayList;
 public class CustomChampionshipListView extends ArrayAdapter<String> {
 
     private ArrayList<Integer> imgID;
-    private ArrayList<String> listaCampionati;
+    private ArrayList<String> nomi;
 
     private Activity context;
 
-    public CustomChampionshipListView(Activity context, ArrayList<String> listaCampionati, ArrayList<Integer> imgID) {
-        super(context, R.layout.campionato_item, listaCampionati);
+    public CustomChampionshipListView(Activity context, ArrayList<String> nomi, ArrayList<Integer> imgID) {
+        super(context, R.layout.campionato_item, nomi);
         this.context = context;
-        this.listaCampionati = listaCampionati;
+        this.nomi = nomi;
         this.imgID = imgID;
     }
 
@@ -46,7 +46,7 @@ public class CustomChampionshipListView extends ArrayAdapter<String> {
         }
 
         viewHolder.iv_logo.setImageResource(imgID.get(position));
-        viewHolder.tv_nome.setText(listaCampionati.get(position));
+        viewHolder.tv_nome.setText(nomi.get(position));
         return r;
     }
 

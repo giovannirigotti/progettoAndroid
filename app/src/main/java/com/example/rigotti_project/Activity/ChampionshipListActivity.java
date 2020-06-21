@@ -20,7 +20,6 @@ import com.example.rigotti_project.Championship.ListaCampionati;
 import com.example.rigotti_project.Championship.Pilota;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Championship.Campionato;
-import com.example.rigotti_project.Support.CustomChampionshipListView;
 import com.example.rigotti_project.Support.Utili;
 
 import org.json.JSONArray;
@@ -39,7 +38,7 @@ public class ChampionshipListActivity extends AppCompatActivity {
 
     private ArrayList<Integer> imgID;
 
-    private ArrayList<String> listaCampionati;
+    private ArrayList<String> nomi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +50,7 @@ public class ChampionshipListActivity extends AppCompatActivity {
 
         ReadData();
 
-        CustomChampionshipListView custom = new CustomChampionshipListView(ChampionshipListActivity.this, listaCampionati, imgID);
+        CustomChampionshipListView custom = new CustomChampionshipListView(ChampionshipListActivity.this, nomi, imgID);
         lv.setAdapter(custom);
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,7 +75,7 @@ public class ChampionshipListActivity extends AppCompatActivity {
             // auto
             ArrayList<Pilota> piloti = new ArrayList<>();
 
-            listaCampionati = new ArrayList<>();
+            nomi = new ArrayList<>();
             imgID = new ArrayList<>();
             champID = new ArrayList<>();
 
@@ -171,12 +170,13 @@ public class ChampionshipListActivity extends AppCompatActivity {
 
                     //Aggiungo campionato alla lista
                     lista_campionati.add(campionato);
+                    Utili.listaCampionati = new ListaCampionati(lista_campionati);
 
                     Log.e("DEBUG", "AGGIUNGO CAMPIONATO ALLA LISTA");
 
 
                     champID.add(id);
-                    listaCampionati.add(nome);
+                    nomi.add(nome);
                     imgID.add(id_logo);
                 }
 
@@ -194,8 +194,6 @@ public class ChampionshipListActivity extends AppCompatActivity {
     public void OpenCampionato(Activity context, int position) {
         Intent i = new Intent(context, ChampionshipActivity.class);
         i.putExtra("position", position);
-        i.putExtra("nome", listaCampionati.get(position));
-        i.putExtra("logo", imgID.get(position));
         startActivity(i);
     }
 

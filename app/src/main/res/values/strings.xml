@@ -47,4 +47,12 @@
     <string name="test_text">test</string>
     <string name="nome_campionato_text">Nome campionato</string>
     <string name="logo_campionato_text">Logo del campionato</string>
+    <string name="text_go">GO</string>
+    <string name="calendario_text">Vai al calendario,\nvisualizza la lista delle gare!</string>
+    <string name="iscritti_text">Vai agli iscritti,\nvisualizza i partecipanti</string>
+    <string name="impostazioni_text">Vai alle impostazioni,\nGuarda tutte le regole</string>
+    <string name="text_piloti">E i piloti?\nVisualizza la lista dei corridori</string>
+    <string name="text_iscriviti_cancella_iscrizione">Iscriviti/Cancella Iscrizione</string>
+    <string name="text_info_forum">Vai al forum:</string>
+    <string name="text_forum">www.forum.it</string>
 </resources>

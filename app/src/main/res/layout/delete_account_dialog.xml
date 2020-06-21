@@ -17,23 +17,23 @@
 
     <Button
         android:id="@+id/btn_conferma_elimina"
-        android:layout_width="180dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#00BCD4"
+        android:backgroundTint="#F44336"
         android:text="@string/text_conferma"
         android:textColor="#000000" />
 
     <Button
         android:id="@+id/btn_annulla_eliminazione"
-        android:layout_width="130dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="230dp"
-        android:layout_marginTop="-69dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="#00BCD4"
         android:text="@string/annulla_text"
         android:textColor="#000000" />
