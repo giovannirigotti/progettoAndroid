@@ -92,7 +92,8 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     public void OpenGara(Activity context, int position) {
-        Intent i = new Intent(context, ChampionshipActivity.class);
+        Intent i = new Intent(context, RaceActivity.class);
+        i.putExtra("indice_campionato", indice_campionato);
         i.putExtra("position", position);
         startActivity(i);
     }

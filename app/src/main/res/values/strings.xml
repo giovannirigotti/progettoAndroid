@@ -50,12 +50,17 @@
     <string name="text_go">GO</string>
     <string name="calendario_text">Vai al calendario,\nvisualizza la lista delle gare!</string>
     <string name="iscritti_text">Vai agli iscritti,\nvisualizza i partecipanti</string>
-    <string name="impostazioni_text">Vai alle impostazioni,\nGuarda tutte le regole</string>
-    <string name="text_piloti">E i piloti?\nVisualizza la lista dei corridori</string>
+    <string name="impostazioni_text">Vai alle impostazioni,\nguarda tutte le regole</string>
+    <string name="text_piloti">E i piloti?\nvisualizza la lista dei corridori</string>
     <string name="text_iscriviti_cancella_iscrizione">Iscriviti/Cancella Iscrizione</string>
     <string name="text_info_forum">Vai al forum:</string>
     <string name="text_forum">www.forum.it</string>
     <string name="text_seq">Sequence</string>
     <string name="text_data">Data</string>
     <string name="text_circuito">Circuito</string>
+    <string name="text_gara">Gara</string>
+    <string name="text_classifiche">Classifiche</string>
+    <string name="galleria_fotografica">Galleria fotografica</string>
+    <string name="testo_galleria">Vai alla galleria fotografica della gara\ne condividi i momenti salienti</string>
+    <string name="testo_classifiche">Visualizza la classifica piloti e\nla classifica dei team!</string>
 </resources>

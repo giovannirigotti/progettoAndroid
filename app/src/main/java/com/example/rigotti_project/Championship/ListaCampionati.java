@@ -28,9 +28,8 @@ public class ListaCampionati {
         this.campionati = campionati;
     }
 
-    public Campionato getCampionato(Integer position){
-        Campionato c = new Campionato();
-        c = campionati.get(position);
+    public Campionato getCampionato(Integer position) {
+        Campionato c = campionati.get(position);
         return c;
     }
 

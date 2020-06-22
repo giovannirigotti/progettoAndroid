@@ -62,7 +62,7 @@ public class ChampionshipActivity extends AppCompatActivity {
             startActivity(new_i);
         }
 
-        String forum = "www.simulator.forum.id_campionato_" + campionato.getId().toString() + ".it";
+        String forum = "www.simulator.it/forum/"+ campionato.getNome();
 
         tv_nome = (TextView) findViewById(R.id.camp_nome);
         iv_logo = (ImageView) findViewById(R.id.camp_logo);
