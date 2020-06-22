@@ -55,4 +55,7 @@
     <string name="text_iscriviti_cancella_iscrizione">Iscriviti/Cancella Iscrizione</string>
     <string name="text_info_forum">Vai al forum:</string>
     <string name="text_forum">www.forum.it</string>
+    <string name="text_seq">Sequence</string>
+    <string name="text_data">Data</string>
+    <string name="text_circuito">Circuito</string>
 </resources>

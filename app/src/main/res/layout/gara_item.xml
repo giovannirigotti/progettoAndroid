@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/gara_seq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/text_seq"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/gara_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/label_gara_data"
+            android:text="@string/text_data"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/label_gara_circuito"
+            android:layout_toEndOf="@id/gara_seq"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_circuito" />
+
+        <TextView
+            android:id="@+id/gara_circuito"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/label_gara_circuito"
+            android:text="@string/text_circuito"
+            android:textColor="#000000" />
+        <TextView
+            android:id="@+id/label_gara_data"
+            android:layout_toEndOf="@id/label_gara_circuito"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="140dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_data" />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

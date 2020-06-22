@@ -50,6 +50,7 @@ public class ChampionshipListActivity extends AppCompatActivity {
 
         ReadData();
 
+        lv = (ListView) findViewById(R.id.lista_campionati);
         CustomChampionshipListView custom = new CustomChampionshipListView(ChampionshipListActivity.this, nomi, imgID);
         lv.setAdapter(custom);
 
@@ -70,16 +71,15 @@ public class ChampionshipListActivity extends AppCompatActivity {
             // id
             // nome
             // logo
-            ArrayList<Gara> calendario = new ArrayList<>();
-            ArrayList<Impostazione> impostazioni = new ArrayList<>();
+            // calendario
+            // impostazioni
             // auto
-            ArrayList<Pilota> piloti = new ArrayList<>();
+            // piloti
 
             nomi = new ArrayList<>();
             imgID = new ArrayList<>();
             champID = new ArrayList<>();
 
-            lv = (ListView) findViewById(R.id.lista_campionati);
             try {
 
                 final JSONObject jsonObj = new JSONObject(json);
@@ -99,15 +99,14 @@ public class ChampionshipListActivity extends AppCompatActivity {
                     Integer id_logo = Utili.getResId(this, logo);
                     // endregion
 
-                    Log.e("DEBUG", "PRIMI TRE");
-
                     final JSONArray j_calendario = a.getJSONArray("calendario");
                     //CICLO PER TUTTE LE GARE
+                    ArrayList<Gara> calendario = new ArrayList<>();
                     for (int j = 0; j < j_calendario.length(); j++) {
                         JSONObject b = j_calendario.getJSONObject(j);
 
                         //LEGGO DATI DAL JSON
-                        String seq = b.getString("seq");
+                        Integer seq = b.getInt("seq");
                         String data = b.getString("data");
                         String circuito = b.getString("circuito");
 
@@ -118,11 +117,9 @@ public class ChampionshipListActivity extends AppCompatActivity {
                         calendario.add(gara);
                     }
 
-                    Log.e("DEBUG", "CALENDARIO");
-
-
                     final JSONArray j_impostazioni = a.getJSONArray("impostazioni-gioco");
                     //CICLO PER TUTTE LE IMPOSTAZIONI
+                    ArrayList<Impostazione> impostazioni = new ArrayList<>();
                     for (int k = 0; k < j_impostazioni.length(); k++) {
                         JSONObject c = j_impostazioni.getJSONObject(k);
 
@@ -137,15 +134,12 @@ public class ChampionshipListActivity extends AppCompatActivity {
                         impostazioni.add(impostazione);
                     }
 
-                    Log.e("DEBUG", "IMPOSTAZIONI");
-
                     //LEGGO DATI DAL JSON
                     String auto = a.getString("lista-auto");
 
-                    Log.e("DEBUG", "AUTO");
-
                     final JSONArray j_piloti = a.getJSONArray("piloti-iscritti");
                     //CICLO PER TUTTI I PILOTI
+                    ArrayList<Pilota> piloti = new ArrayList<>();
                     for (int z = 0; z < j_piloti.length(); z++) {
                         JSONObject d = j_piloti.getJSONObject(z);
 
@@ -161,12 +155,8 @@ public class ChampionshipListActivity extends AppCompatActivity {
                         piloti.add(pilota);
                     }
 
-                    Log.e("DEBUG", "PILOTI");
-
                     // Creo nuovo campionato
                     Campionato campionato = new Campionato(id, nome, id_logo, calendario, impostazioni, auto, piloti);
-
-                    Log.e("DEBUG", "CREAO CAMPIONATO");
 
                     //Aggiungo campionato alla lista
                     lista_campionati.add(campionato);

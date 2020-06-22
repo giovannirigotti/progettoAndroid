@@ -1,7 +1,7 @@
 package com.example.rigotti_project.Championship;
 
 public class Gara {
-    private String seq;
+    private Integer seq;
     private String data;
     private String circuito;
 
@@ -13,7 +13,7 @@ public class Gara {
         this.circuito = null;
     }
 
-    public Gara(String seq, String data, String circuito) {
+    public Gara(Integer seq, String data, String circuito) {
         this.seq = seq;
         this.data = data;
         this.circuito = circuito;
@@ -23,11 +23,11 @@ public class Gara {
 
     // region GETTERS SETTERS
 
-    public String getSeq() {
+    public Integer getSeq() {
         return seq;
     }
 
-    public void setSeq(String seq) {
+    public void setSeq(Integer seq) {
         this.seq = seq;
     }
 
