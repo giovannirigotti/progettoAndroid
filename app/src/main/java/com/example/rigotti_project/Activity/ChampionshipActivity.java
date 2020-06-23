@@ -14,11 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rigotti_project.Championship.Campionato;
-import com.example.rigotti_project.Championship.Gara;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
-
-import java.util.ArrayList;
 
 public class ChampionshipActivity extends AppCompatActivity {
 
@@ -35,7 +32,7 @@ public class ChampionshipActivity extends AppCompatActivity {
     private Campionato campionato;
 
     //Button
-    private Button btn_calendario, btn_iscritti, btn_classifica, btn_impostazioni, btn_iscriviti;
+    private Button btn_calendario, btn_iscritti, btn_piloti, btn_impostazioni, btn_iscriviti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +66,7 @@ public class ChampionshipActivity extends AppCompatActivity {
         tv_forum = (TextView) findViewById(R.id.tv_forum);
 
         btn_calendario = (Button) findViewById(R.id.btn_calendario);
-        btn_classifica = (Button) findViewById(R.id.btn_classifica);
+        btn_piloti = (Button) findViewById(R.id.btn_piloti);
         btn_iscritti = (Button) findViewById(R.id.btn_iscritti);
         btn_impostazioni = (Button) findViewById(R.id.btn_impostazioni);
         btn_iscriviti = (Button) findViewById(R.id.btn_iscrizione);
@@ -82,6 +79,33 @@ public class ChampionshipActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ChampionshipActivity.this, CalendarActivity.class);
+                i.putExtra("indice_campionato", position);
+                startActivity(i);
+            }
+        });
+
+        btn_iscritti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ChampionshipActivity.this, MemberActivity.class);
+                i.putExtra("indice_campionato", position);
+                startActivity(i);
+            }
+        });
+
+        btn_impostazioni.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ChampionshipActivity.this, SettingsActivity.class);
+                i.putExtra("indice_campionato", position);
+                startActivity(i);
+            }
+        });
+
+        btn_piloti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ChampionshipActivity.this, PilotsActivity.class);
                 i.putExtra("indice_campionato", position);
                 startActivity(i);
             }

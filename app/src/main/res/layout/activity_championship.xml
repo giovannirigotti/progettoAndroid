@@ -75,7 +75,7 @@
         app:layout_constraintVertical_bias="0.09" />
 
     <Button
-        android:id="@+id/btn_classifica"
+        android:id="@+id/btn_piloti"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00BCD4"

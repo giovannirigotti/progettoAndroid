@@ -135,22 +135,23 @@ public class Utili {
             case R.id.item_account:
                 //vado alla activity account;
                 intent = new Intent(activity, AccounActivity.class);
-                ((Activity) activity).startActivity(intent);
+                activity.startActivity(intent);
                 return true;
             case R.id.item_home:
+            case R.id.item_home_2:
                 //vado alla activity home;
                 intent = new Intent(activity, HomeActivity.class);
-                ((Activity) activity).startActivity(intent);
+                activity.startActivity(intent);
                 return true;
             case R.id.item_campionati:
                 //vado alla activity campionati;
                 intent = new Intent(activity, ChampionshipListActivity.class);
-                ((Activity) activity).startActivity(intent);
+                activity.startActivity(intent);
                 return true;
             case R.id.item_modifica_dati:
                 //vado alla activity modifica_dati;
                 intent = new Intent(activity, EditDataActivity.class);
-                ((Activity) activity).startActivity(intent);
+                activity.startActivity(intent);
                 return true;
             case R.id.item_logout:
                 //eseguo logout: cancello dati, setto stato su "WAS_LOGGED" e vado alla activity login;
@@ -177,7 +178,7 @@ public class Utili {
             is.close();
         } catch (IOException e) {
             e.printStackTrace();
-            Utili.doToast(activity,"Impossibile caricare dati.");
+            Utili.doToast(activity, "Impossibile caricare dati.");
             return "error";
         }
 
@@ -185,11 +186,11 @@ public class Utili {
         return res;
     }
 
-    public static String getNameLogo(String logo_png){
+    public static String getNameLogo(String logo_png) {
         return logo_png.split("\\.")[0];
     }
 
-    public static Integer getResId(Activity context, String nome_risorsa){
+    public static Integer getResId(Activity context, String nome_risorsa) {
         Log.println(Log.ERROR, "nome_risorsa", nome_risorsa);
         int resourceID = context.getResources().getIdentifier(nome_risorsa, "drawable", context.getPackageName());
         return resourceID;

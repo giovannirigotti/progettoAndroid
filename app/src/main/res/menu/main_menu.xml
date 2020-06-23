@@ -2,13 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/item_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home page"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/item_account"
         android:icon="@drawable/ic_account"
         android:title="Account"
         app:showAsAction="ifRoom" />
-
     <item
-        android:id="@+id/item_home"
+        android:id="@+id/item_home_2"
         android:title="Home page"
         app:showAsAction="never" />
     <item
