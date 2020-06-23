@@ -3,6 +3,9 @@ package com.example.rigotti_project.Support;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -12,8 +15,16 @@ import com.example.rigotti_project.Activity.ChampionshipListActivity;
 import com.example.rigotti_project.Activity.EditDataActivity;
 import com.example.rigotti_project.Activity.HomeActivity;
 import com.example.rigotti_project.Activity.LoginActivity;
+import com.example.rigotti_project.Championship.Campionato;
+import com.example.rigotti_project.Championship.Gara;
+import com.example.rigotti_project.Championship.Impostazione;
 import com.example.rigotti_project.Championship.ListaCampionati;
+import com.example.rigotti_project.Championship.Pilota;
 import com.example.rigotti_project.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,6 +33,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class Utili {
@@ -196,4 +208,17 @@ public class Utili {
         return resourceID;
     }
 
+    public static Integer isMember(Integer id_campionato) {
+        ArrayList<Pilota> membri = listaCampionati.getCampionato(id_campionato).getPiloti();
+        String my_name = PersonalData.getNOME() + " " + PersonalData.getCOGNOME();
+        Integer res = -1;
+        for (int i = 0; i < membri.size(); i++) {
+            Pilota p = membri.get(i);
+            String pilots_name = p.getNome();
+            if(pilots_name.equals(my_name)){
+                res = i;
+            }
+        }
+        return res;
+    }
 }

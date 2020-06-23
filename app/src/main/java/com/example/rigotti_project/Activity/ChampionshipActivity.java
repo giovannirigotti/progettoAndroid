@@ -14,12 +14,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.rigotti_project.Championship.Campionato;
+import com.example.rigotti_project.Championship.Pilota;
 import com.example.rigotti_project.R;
+import com.example.rigotti_project.Support.DatabaseHelper;
+import com.example.rigotti_project.Support.PersonalData;
 import com.example.rigotti_project.Support.Utili;
+
+import java.util.ArrayList;
 
 public class ChampionshipActivity extends AppCompatActivity {
 
-    private Integer position;
+    private Integer indice_campionato;
+
+    private DatabaseHelper db;
+
+    private String json;
 
     //TextView
     private TextView tv_nome;
@@ -40,27 +49,34 @@ public class ChampionshipActivity extends AppCompatActivity {
         setContentView(R.layout.activity_championship);
         setTitle("Campionato");
         campionato = new Campionato();
+        db = new DatabaseHelper(this);
+
+        json = Utili.getCampionati(this);
 
         Intent i = getIntent();
 
+        // Controllo che l'intent sia stato passato correttamente
+        // (setto position)
+        // region CHECK INTENT
         if (!i.hasExtra("position")) {
             Utili.doToast(this, "Campionato non disponibile.");
             Intent new_i = new Intent(this, HomeActivity.class);
             startActivity(new_i);
+        } else {
+            indice_campionato = i.getIntExtra("position", -1);
+            if (indice_campionato == -1) {
+                Utili.doToast(this, "Campionato non disponibile.");
+                Intent new_i = new Intent(this, HomeActivity.class);
+                startActivity(new_i);
+            }
         }
+        // endregion
 
-        position = i.getIntExtra("position", -1);
+        //prendo campionato dalla lista campionati comune
+        campionato = Utili.listaCampionati.getCampionato(indice_campionato);
 
-        campionato = Utili.listaCampionati.getCampionato(position);
-
-        if (position == -1) {
-            Utili.doToast(this, "Campionato non disponibile.");
-            Intent new_i = new Intent(this, HomeActivity.class);
-            startActivity(new_i);
-        }
-
-        String forum = "www.simulator.it/forum/"+ campionato.getNome();
-
+        //imposto le view
+        // region SET VIEW
         tv_nome = (TextView) findViewById(R.id.camp_nome);
         iv_logo = (ImageView) findViewById(R.id.camp_logo);
         tv_forum = (TextView) findViewById(R.id.tv_forum);
@@ -70,16 +86,20 @@ public class ChampionshipActivity extends AppCompatActivity {
         btn_iscritti = (Button) findViewById(R.id.btn_iscritti);
         btn_impostazioni = (Button) findViewById(R.id.btn_impostazioni);
         btn_iscriviti = (Button) findViewById(R.id.btn_iscrizione);
+        // endregion
 
+        //"popolo" le view
         tv_nome.setText(campionato.getNome());
         iv_logo.setImageResource(campionato.getId_logo());
+        String forum = "www.simulator.it/forum/" + campionato.getNome();
         tv_forum.setText(forum);
 
+        // region LISTENER BOTTONI
         btn_calendario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ChampionshipActivity.this, CalendarActivity.class);
-                i.putExtra("indice_campionato", position);
+                i.putExtra("indice_campionato", indice_campionato);
                 startActivity(i);
             }
         });
@@ -88,7 +108,7 @@ public class ChampionshipActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ChampionshipActivity.this, MemberActivity.class);
-                i.putExtra("indice_campionato", position);
+                i.putExtra("indice_campionato", indice_campionato);
                 startActivity(i);
             }
         });
@@ -97,7 +117,7 @@ public class ChampionshipActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ChampionshipActivity.this, SettingsActivity.class);
-                i.putExtra("indice_campionato", position);
+                i.putExtra("indice_campionato", indice_campionato);
                 startActivity(i);
             }
         });
@@ -106,11 +126,63 @@ public class ChampionshipActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(ChampionshipActivity.this, PilotsActivity.class);
-                i.putExtra("indice_campionato", position);
+                i.putExtra("indice_campionato", indice_campionato);
                 startActivity(i);
             }
         });
 
+        // endregion
+
+        //GESTIONE ISCRIZIONE
+
+        //controllo se sono iscritto
+        //ALTERNATIVA: USO Funzione isMemeber su DatabaseHelper tanto gli account eliminabili sono solo quelli nuovi (Non quelli sul file json)
+        Integer indice_iscritto = Utili.isMember(indice_campionato);
+        if(indice_iscritto >= 0){
+            //se sono iscritto setto bottone per cancellare l'iscrizione
+            //Utili.doToast(this,"MEMBRO");
+            btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorRed));
+            btn_iscriviti.setText("Cancella iscrizione");
+            btn_iscriviti.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //cancello iscrizione
+                    db.deleteEntry(indice_campionato);
+                    Utili.doToast(ChampionshipActivity.this,"ISCRIZIONE CANCELLATA CON SUCCESSO!");
+                    //NEL FRATTEMPO BLOCCO
+                    //ALTERNATIVA: RICARICO LA PAGINA!
+                    btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
+                    btn_iscriviti.setEnabled(false);
+                }
+            });
+
+
+
+        }
+        else{
+            //se non sono iscritto setto bottone per iscrivermi
+            //Utili.doToast(this,"NON MEMBRO");
+            btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+            btn_iscriviti.setText("Iscriviti");
+            //vado alla Activity per iscrivermi
+            Intent z = new Intent(ChampionshipActivity.this, EnrollActivity.class);
+            z.putExtra("indice_campionato", indice_campionato);
+            startActivity(z);
+        }
+
+    }
+
+    //Controllo se sono iscritto al campionato
+    private Integer imMember(){
+        ArrayList<Pilota> iscritti = campionato.getPiloti();
+        String my_name = PersonalData.getNOME() + " "+ PersonalData.getCOGNOME();
+        for (int i = 0; i < iscritti.size(); i++){
+            Pilota p = iscritti.get(i);
+            if(p.getNome().equals(my_name)){
+                return i;
+            }
+        }
+        return -1;
     }
 
     // region IMPORTO MENU

@@ -20,6 +20,7 @@ import com.example.rigotti_project.Championship.ListaCampionati;
 import com.example.rigotti_project.Championship.Pilota;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Championship.Campionato;
+import com.example.rigotti_project.Support.DatabaseHelper;
 import com.example.rigotti_project.Support.Utili;
 
 import org.json.JSONArray;
@@ -29,6 +30,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ChampionshipListActivity extends AppCompatActivity {
+
+    private DatabaseHelper db;
 
     private String json;
 
@@ -46,9 +49,13 @@ public class ChampionshipListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_championship_list);
         setTitle("Lista campionati");
 
+        db = new DatabaseHelper(this);
+
         json = Utili.getCampionati(this);
 
         ReadData();
+        db.updatePiloti();
+
 
         lv = (ListView) findViewById(R.id.lista_campionati);
         CustomChampionshipListView custom = new CustomChampionshipListView(ChampionshipListActivity.this, nomi, imgID);
