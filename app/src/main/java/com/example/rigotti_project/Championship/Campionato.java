@@ -1,5 +1,7 @@
 package com.example.rigotti_project.Championship;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 
@@ -109,12 +111,10 @@ public class Campionato {
         return p;
     }
 
-    public void updatePiloti(ArrayList<Pilota> nuovi_piloti){
-        piloti = nuovi_piloti;
-    }
-
-    public void addPilota(Pilota nuovo_pilota){
+    public void addPilota(Pilota nuovo_pilota) {
+        Log.e("NUOVO PILOTA", nuovo_pilota.getNome() + " " + nuovo_pilota.getAuto() + " " + nuovo_pilota.getTeam());
         piloti.add(nuovo_pilota);
+
     }
 
     //endregion

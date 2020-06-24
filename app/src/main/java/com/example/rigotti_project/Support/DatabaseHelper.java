@@ -146,14 +146,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // region GETIONE TABELLA ISCRITTI
 
     public long addEntry(Integer id_campionato, String auto, String team) {
+        String my_name = PersonalData.getNOME() + " " + PersonalData.getCOGNOME();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(C_ID_UTENTE, PersonalData.getID());
         cv.put(C_ID_CAMPIONATO, id_campionato);
+        cv.put(C_NOME_PILOTA, my_name);
         cv.put(C_AUTO, auto);
         cv.put(C_TEAM, team);
         long res = db.insert(TABLE_INSCRIPTIONS, null, cv);
         db.close();
+        Pilota p = new Pilota(my_name, team, auto);
+        Utili.listaCampionati.getCampionato(id_campionato).addPilota(p);
         return res;
     }
 
@@ -199,7 +203,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 piloti.add(p);
             }
         }
-        Utili.listaCampionati.getCampionato(id_campionato).updatePiloti(piloti);
+        Utili.listaCampionati.getCampionato(id_campionato).setPiloti(piloti);
     }
 
     public boolean isMember(Integer id_campionato) {

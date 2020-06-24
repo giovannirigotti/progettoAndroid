@@ -41,7 +41,7 @@ public class ChampionshipActivity extends AppCompatActivity {
     private Campionato campionato;
 
     //Button
-    private Button btn_calendario, btn_iscritti, btn_piloti, btn_impostazioni, btn_iscriviti;
+    private Button btn_calendario, btn_iscritti, btn_classifica, btn_impostazioni, btn_iscriviti;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +82,7 @@ public class ChampionshipActivity extends AppCompatActivity {
         tv_forum = (TextView) findViewById(R.id.tv_forum);
 
         btn_calendario = (Button) findViewById(R.id.btn_calendario);
-        btn_piloti = (Button) findViewById(R.id.btn_piloti);
+        btn_classifica = (Button) findViewById(R.id.btn_classifica);
         btn_iscritti = (Button) findViewById(R.id.btn_iscritti);
         btn_impostazioni = (Button) findViewById(R.id.btn_impostazioni);
         btn_iscriviti = (Button) findViewById(R.id.btn_iscrizione);
@@ -107,7 +107,7 @@ public class ChampionshipActivity extends AppCompatActivity {
         btn_iscritti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ChampionshipActivity.this, MemberActivity.class);
+                Intent i = new Intent(ChampionshipActivity.this, PilotsActivity.class);
                 i.putExtra("indice_campionato", indice_campionato);
                 startActivity(i);
             }
@@ -122,10 +122,10 @@ public class ChampionshipActivity extends AppCompatActivity {
             }
         });
 
-        btn_piloti.setOnClickListener(new View.OnClickListener() {
+        btn_classifica.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ChampionshipActivity.this, PilotsActivity.class);
+                Intent i = new Intent(ChampionshipActivity.this, RankingActivity.class);
                 i.putExtra("indice_campionato", indice_campionato);
                 startActivity(i);
             }
@@ -151,12 +151,11 @@ public class ChampionshipActivity extends AppCompatActivity {
                     Utili.doToast(ChampionshipActivity.this,"ISCRIZIONE CANCELLATA CON SUCCESSO!");
                     //NEL FRATTEMPO BLOCCO
                     //ALTERNATIVA: RICARICO LA PAGINA!
-                    btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
-                    btn_iscriviti.setEnabled(false);
+                    Intent x = new Intent(ChampionshipActivity.this, ChampionshipActivity.class);
+                    x.putExtra("position", indice_campionato);
+                    startActivity(x);
                 }
             });
-
-
 
         }
         else{
@@ -164,10 +163,20 @@ public class ChampionshipActivity extends AppCompatActivity {
             //Utili.doToast(this,"NON MEMBRO");
             btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
             btn_iscriviti.setText("Iscriviti");
-            //vado alla Activity per iscrivermi
-            Intent z = new Intent(ChampionshipActivity.this, EnrollActivity.class);
-            z.putExtra("indice_campionato", indice_campionato);
-            startActivity(z);
+            btn_iscriviti.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //vado alla Activity per iscrivermi
+                    Intent z = new Intent(ChampionshipActivity.this, EnrollActivity.class);
+                    z.putExtra("indice_campionato", indice_campionato);
+                    startActivity(z);
+                    //NEL FRATTEMPO BLOCCO
+                    //ALTERNATIVA: RICARICO LA PAGINA!
+                    btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
+                    btn_iscriviti.setEnabled(false);
+                }
+            });
+
         }
 
     }
