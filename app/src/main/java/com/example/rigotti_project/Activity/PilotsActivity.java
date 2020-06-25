@@ -13,13 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.rigotti_project.Championship.Campionato;
+import com.example.rigotti_project.Championship.CustomPilotsListView;
 import com.example.rigotti_project.Championship.Pilota;
-import com.example.rigotti_project.CustomPilotsListView;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 

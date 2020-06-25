@@ -1,31 +1,34 @@
-package com.example.rigotti_project;
+package com.example.rigotti_project.Championship;
 
 import android.app.Activity;
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.rigotti_project.R;
+
 import java.util.ArrayList;
 
-public class CustomPilotsListView extends ArrayAdapter<String> {
+public class CustomChampionshipListView extends ArrayAdapter<String> {
 
+    private ArrayList<Integer> imgID;
     private ArrayList<String> nomi;
-    private ArrayList<String> auto;
-    private ArrayList<String> team;
 
     private Activity context;
 
-    public CustomPilotsListView(Activity context, ArrayList<String> nomi, ArrayList<String> auto, ArrayList<String> team) {
-        super(context, R.layout.pilota_item, nomi);
+    public CustomChampionshipListView(Activity context, ArrayList<String> nomi, ArrayList<Integer> imgID) {
+        super(context, R.layout.campionato_item, nomi);
         this.context = context;
         this.nomi = nomi;
-        this.auto = auto;
-        this.team = team;
+        this.imgID = imgID;
     }
 
     @NonNull
@@ -35,22 +38,26 @@ public class CustomPilotsListView extends ArrayAdapter<String> {
         ViewHolder viewHolder = null;
         if (r == null) {
             LayoutInflater layoutInflater = context.getLayoutInflater();
-            r = layoutInflater.inflate(R.layout.pilota_item, null, true);
+            r = layoutInflater.inflate(R.layout.campionato_item, null);
             viewHolder = new ViewHolder(r);
             r.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) r.getTag();
         }
+
+        viewHolder.iv_logo.setImageResource(imgID.get(position));
         viewHolder.tv_nome.setText(nomi.get(position));
         return r;
     }
-}
-
-class ViewHolder {
-    TextView tv_nome;
 
 
-    ViewHolder(View v) {
-        tv_nome = (TextView) v.findViewById(R.id.pilota_nome);
+    class ViewHolder {
+        TextView tv_nome;
+        ImageView iv_logo;
+
+        ViewHolder(View v) {
+            tv_nome = v.findViewById(R.id.lista_nome);
+            iv_logo = v.findViewById(R.id.lista_logo);
+        }
     }
 }

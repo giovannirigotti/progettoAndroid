@@ -69,4 +69,7 @@
     <string name="seleziona_un_auto_text">Seleziona un auto</string>
     <string name="team_text">Team</string>
     <string name="iscriviti_text">Iscriviti</string>
+    <string name="classifica_piloti_text">Classifica piloti</string>
+    <string name="classifica_team_text">Classifica team</string>
+    <string name="punti_text">Punti</string>
 </resources>

@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.rigotti_project.Championship.CustomChampionshipListView;
 import com.example.rigotti_project.Championship.Gara;
 import com.example.rigotti_project.Championship.Impostazione;
 import com.example.rigotti_project.Championship.ListaCampionati;

@@ -3,7 +3,7 @@
     {
       "id": "0",
       "nome": "Leon Supercopa",
-      "logo": "logo-champ-0.png",
+      "logo": "logo_champ_0.png",
       "classifica-piloti": [
         {
           "nome": "Roberto Cosi",
@@ -68,7 +68,7 @@
     {
       "id": "1",
       "nome": "International TCT",
-      "logo": "logo-champ-1.png",
+      "logo": "logo_champ_1.png",
       "classifica-piloti": [
         {
           "nome": "Gianluca De Matteo",

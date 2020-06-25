@@ -1,4 +1,4 @@
-package com.example.rigotti_project.Activity;
+package com.example.rigotti_project.Championship;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -49,16 +49,18 @@ public class CustomCalendarListView extends ArrayAdapter<String> {
         viewHolder.tv_circuito.setText(circuiti.get(position));
         return r;
     }
-}
 
-class ViewHolder {
-    TextView tv_seq;
-    TextView tv_data;
-    TextView tv_circuito;
+    class ViewHolder {
+        TextView tv_seq;
+        TextView tv_data;
+        TextView tv_circuito;
 
-    ViewHolder(View v) {
-        tv_seq = (TextView) v.findViewById(R.id.gara_seq);
-        tv_data = (TextView) v.findViewById(R.id.gara_data);
-        tv_circuito =(TextView) v.findViewById(R.id.gara_circuito);
+        ViewHolder(View v) {
+            tv_seq = (TextView) v.findViewById(R.id.gara_seq);
+            tv_data = (TextView) v.findViewById(R.id.gara_data);
+            tv_circuito =(TextView) v.findViewById(R.id.gara_circuito);
+        }
     }
 }
+
+

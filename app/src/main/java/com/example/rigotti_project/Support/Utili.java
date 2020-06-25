@@ -198,6 +198,28 @@ public class Utili {
         return res;
     }
 
+    public static String getClassifiche(Activity activity) {
+        String res = "";
+        InputStream is = activity.getResources().openRawResource(R.raw.classifiche);
+        Writer writer = new StringWriter();
+        char[] buffer = new char[1024];
+        try {
+            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            int n;
+            while ((n = reader.read(buffer)) != -1) {
+                writer.write(buffer, 0, n);
+            }
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Utili.doToast(activity, "Impossibile caricare dati.");
+            return "error";
+        }
+
+        res = writer.toString();
+        return res;
+    }
+
     public static String getNameLogo(String logo_png) {
         return logo_png.split("\\.")[0];
     }
@@ -215,7 +237,7 @@ public class Utili {
         for (int i = 0; i < membri.size(); i++) {
             Pilota p = membri.get(i);
             String pilots_name = p.getNome();
-            if(pilots_name.equals(my_name)){
+            if (pilots_name.equals(my_name)) {
                 res = i;
             }
         }

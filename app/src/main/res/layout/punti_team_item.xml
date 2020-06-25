@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <TextView
+            android:id="@+id/punti_team_punti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/punti_text"
+            android:textColor="#000000"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/label_punti_team_team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/punti_team_punti"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/punti_team_punti"
+            android:layout_marginStart="40dp"
+            android:text="@string/team_text"
+            android:textColor="#3A3A40"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/punti_team_team"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/punti_team_punti"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/label_punti_team_team"
+            android:text="@string/team_text"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/label_punti_team_auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/punti_team_punti"
+            android:layout_marginStart="40dp"
+            android:text="@string/auto_text"
+            android:textColor="#3A3A40"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/punti_team_auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_toEndOf="@id/label_punti_team_auto"
+            android:text="@string/auto_text"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>
