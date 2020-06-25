@@ -22,7 +22,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     private ListView risultati_piloti, risultati_team;
 
-    private Integer indice_campionato, indice_gara;
+    private Integer indice_campionato;
 
     private ArrayList<String> nomi, auto, team, t_team, t_auto;
 
@@ -42,14 +42,14 @@ public class ResultsActivity extends AppCompatActivity {
         //Setto indice_campionato e indice_campionato
         // region CHECK INTENT
         Intent i = getIntent();
-        if (!i.hasExtra("indice_campionato") || !i.hasExtra("indice_gara")) {
+        if (!i.hasExtra("indice_campionato")) {
             Utili.doToast(this, "Campionato non disponibile.");
             Intent new_i = new Intent(this, HomeActivity.class);
             startActivity(new_i);
         } else {
             indice_campionato = i.getIntExtra("indice_campionato", -1);
-            indice_gara = i.getIntExtra("indice_gara", -1);
-            if (indice_campionato == -1 || indice_gara == -1) {
+
+            if (indice_campionato == -1) {
                 Utili.doToast(this, "Campionato non disponibile.");
                 Intent new_i = new Intent(this, HomeActivity.class);
                 startActivity(new_i);

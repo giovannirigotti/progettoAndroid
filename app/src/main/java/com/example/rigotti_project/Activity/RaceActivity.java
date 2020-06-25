@@ -72,7 +72,15 @@ public class RaceActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(RaceActivity.this, ResultsActivity.class);
                 intent.putExtra("indice_campionato", indice_campionato);
-                intent.putExtra("indice_gara", position);
+                startActivity(intent);
+            }
+        });
+
+        btn_galleria.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RaceActivity.this, GalleryActivity.class);
+                intent.putExtra("indice_campionato", indice_campionato);
                 startActivity(intent);
             }
         });
