@@ -61,7 +61,7 @@ public class RaceActivity extends AppCompatActivity {
         tv_giornata = (TextView) findViewById(R.id.race_giornata);
 
         btn_classifica = (Button) findViewById(R.id.race_btn_classifica);
-        btn_galleria = (Button) findViewById(R.id.race_btn_classifica);
+        btn_galleria = (Button) findViewById(R.id.race_btn_galleria);
 
         tv_giornata.setText(gara.getSeq().toString());
         tv_circuito.setText(gara.getCircuito());

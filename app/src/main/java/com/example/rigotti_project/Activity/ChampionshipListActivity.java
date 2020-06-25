@@ -72,6 +72,7 @@ public class ChampionshipListActivity extends AppCompatActivity {
 
     }
 
+
     public void ReadData() {
         if (!json.equals("error")) {
             ListaCampionati campionati = new ListaCampionati();
@@ -209,4 +210,5 @@ public class ChampionshipListActivity extends AppCompatActivity {
         // Ritrono "super.onOptionsItemSelected(item)" altrimenti
         return (Utili.setMenu(ChampionshipListActivity.this, item)) ? true : super.onOptionsItemSelected(item);
     }
+
 }

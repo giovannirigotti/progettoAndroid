@@ -173,7 +173,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String auto = cursor.getString(4);
                 String team = cursor.getString(5);
 
-                Pilota p = new Pilota(nome, auto, team);
+                Pilota p = new Pilota(nome, team, auto);
                 Utili.listaCampionati.getCampionato(id_campionato).addPilota(p);
                 cursor.moveToNext();
             }
