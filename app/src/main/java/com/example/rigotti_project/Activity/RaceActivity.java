@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.rigotti_project.Championship.Campionato;
@@ -33,6 +35,7 @@ public class RaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_race);
+        setTitle("Gara");
 
         Intent i = getIntent();
         if (!i.hasExtra("position") || !i.hasExtra("indice_campionato")) {
@@ -64,7 +67,16 @@ public class RaceActivity extends AppCompatActivity {
         tv_circuito.setText(gara.getCircuito());
         tv_data.setText(gara.getData());
 
-        setTitle(gara.getCircuito());
+        btn_classifica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RaceActivity.this, ResultsActivity.class);
+                intent.putExtra("indice_campionato", indice_campionato);
+                intent.putExtra("indice_gara", position);
+                startActivity(intent);
+            }
+        });
+
 
     }
 

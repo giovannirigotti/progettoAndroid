@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.RankingActivity"></activity>
+        <activity android:name=".Activity.GalleryActivity"></activity>
+        <activity android:name=".Activity.ResultsActivity" />
+        <activity android:name=".Activity.RankingActivity" />
         <activity android:name=".Activity.EnrollActivity" />
         <activity android:name=".Activity.PilotsActivity" />
         <activity android:name=".Activity.SettingsActivity" />

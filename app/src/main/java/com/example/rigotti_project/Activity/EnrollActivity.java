@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -84,6 +85,7 @@ public class EnrollActivity extends AppCompatActivity implements AdapterView.OnI
             public void onClick(View v) {
                 if (checkEntry()) {
                     db.addEntry(indice_campionato,auto_to_add,team_to_add);
+                    Log.e("DATI", "auto: "+ auto_to_add + " team: " + team_to_add);
                     Utili.doToast(EnrollActivity.this, "Iscrizione effettuata al campionato!");
                     Intent i = new Intent(EnrollActivity.this, ChampionshipActivity.class);
                     i.putExtra("position",indice_campionato);

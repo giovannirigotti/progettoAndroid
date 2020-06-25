@@ -74,4 +74,8 @@
     <string name="punti_text">Punti</string>
     <string name="tipo_text">Tipo</string>
     <string name="valore_text">Valore</string>
+    <string name="risultati_text">Risultati</string>
+    <string name="risultati_long_text">Visualizza la classifica della gara!\nPiloti e Team...</string>
+    <string name="risultati_piloti_text">Risultati piloti</string>
+    <string name="risultati_team_text">Risultati team</string>
 </resources>

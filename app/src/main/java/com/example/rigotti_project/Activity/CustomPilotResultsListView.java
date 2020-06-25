@@ -1,4 +1,4 @@
-package com.example.rigotti_project.Rankings;
+package com.example.rigotti_project.Activity;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -11,24 +11,46 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.rigotti_project.R;
+import com.example.rigotti_project.Rankings.CustomPilotRankingListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
-public class CustomPilotRankingListView  extends ArrayAdapter<String> {
+public class CustomPilotResultsListView extends ArrayAdapter<String> {
 
     private ArrayList<Integer> punti;
     private ArrayList<String> nomi, team, auto;
 
     private Activity context;
 
-    public CustomPilotRankingListView(Activity context, ArrayList<String> nomi, ArrayList<String> team, ArrayList<String> auto, ArrayList<Integer> punti) {
+    public CustomPilotResultsListView(Activity context, ArrayList<String> nomi, ArrayList<String> team, ArrayList<String> auto) {
         super(context, R.layout.punti_pilota_item, nomi);
         this.context = context;
         this.nomi = nomi;
         this.team = team;
         this.auto = auto;
-        this.punti = punti;
-
+        this.punti = new ArrayList<>();
+        int upperbound = 20;
+        //CREO PUNTI A CASO (NON DOPPIATI)
+        //generate random values from 0-25
+        Random rand = new Random(); //instance of random class
+        punti.add(20);//il primo ha 20 punti
+        int i = 1;
+        while (i < nomi.size()) {
+            //FACILITO zeri
+            if (nomi.size() - i < 5) {
+                upperbound = 3;
+            } else if (nomi.size() - i < 2) {
+                upperbound = 1;
+            }
+            int num = rand.nextInt(upperbound);
+            if (!punti.contains(num) || num == 0) {
+                punti.add(num);
+                i++;
+            }
+        }
+        Collections.sort(punti, Collections.reverseOrder());
     }
 
     @NonNull
@@ -53,7 +75,7 @@ public class CustomPilotRankingListView  extends ArrayAdapter<String> {
 
 
     class ViewHolder {
-        TextView tv_nome,tv_team,tv_auto,tv_punti;
+        TextView tv_nome, tv_team, tv_auto, tv_punti;
 
 
         ViewHolder(View v) {
