@@ -67,6 +67,8 @@ public class PilotsActivity extends AppCompatActivity {
 
         getPilotsData();
 
+        Utili.doToast(this, "Premi su un pilota iscritto per vedere più informazioni!");
+
         lv = (ListView) findViewById(R.id.lista_piloti);
         CustomPilotsListView custom = new CustomPilotsListView(this, nomi, auto, team);
         lv.setAdapter(custom);

@@ -72,4 +72,6 @@
     <string name="classifica_piloti_text">Classifica piloti</string>
     <string name="classifica_team_text">Classifica team</string>
     <string name="punti_text">Punti</string>
+    <string name="tipo_text">Tipo</string>
+    <string name="valore_text">Valore</string>
 </resources>
