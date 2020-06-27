@@ -2,22 +2,41 @@ package com.example.rigotti_project.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.solver.LinearSystem;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 
-public class GalleryActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class GalleryActivity extends AppCompatActivity {
+    private ArrayList<String> nomi_foto;
+    private ListView lista_foto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         setTitle("Galleria");
+
+        nomi_foto = new ArrayList<>();
+
+        String prefisso = "th_gte";
+
+        for (int i = 1; i <= Utili.NUMERO_FOTO; i++) {
+            String nome_risorsa = prefisso + String.valueOf(i);
+            nomi_foto.add(nome_risorsa);
+        }
+
+        lista_foto = (ListView) findViewById(R.id.lista_foto);
+        CustomGalleryList custom = new CustomGalleryList(this, nomi_foto);
+        lista_foto.setAdapter(custom);
+
     }
 
     // region IMPORTO MENU

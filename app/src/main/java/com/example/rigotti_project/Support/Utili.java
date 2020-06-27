@@ -38,6 +38,8 @@ public class Utili {
     //  0 --> appena effettuato logout
     //  1 --> loggato
 
+    public static final Integer NUMERO_FOTO = 30;
+
     private static Integer STATUS = NEVER_LOGGED;
 
     public static ListaCampionati listaCampionati;

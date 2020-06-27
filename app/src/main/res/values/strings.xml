@@ -78,4 +78,9 @@
     <string name="risultati_long_text">Visualizza la classifica della gara!\nPiloti e Team...</string>
     <string name="risultati_piloti_text">Risultati piloti</string>
     <string name="risultati_team_text">Risultati team</string>
+    <string name="text_apri">Apri</string>
+    <string name="img_3">img_3_text</string>
+    <string name="img_1_text">img_1</string>
+    <string name="img_2_text">img_2</string>
+    <string name="img_text">img</string>
 </resources>
