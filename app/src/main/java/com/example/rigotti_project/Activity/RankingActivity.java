@@ -66,7 +66,7 @@ public class RankingActivity extends AppCompatActivity {
         }
         // endregion //
 
-        readClassifiche();
+        lista_classifiche = Utili.listaClassifiche;
         classifica = lista_classifiche.getLista_classifiche().get(indice_campionato);
         ArrayList<String> p_nomi = new ArrayList<>();
         ArrayList<String> p_team = new ArrayList<>();
@@ -95,92 +95,6 @@ public class RankingActivity extends AppCompatActivity {
         lv_team = (ListView) findViewById(R.id.classifica_team);
         CustomTeamRankingListView c2 = new CustomTeamRankingListView(RankingActivity.this, t_team, t_auto, t_punti);
         lv_team.setAdapter(c2);
-    }
-
-    public void readClassifiche() {
-        String json = Utili.getClassifiche(this);
-        Classifica cla;
-
-
-        if (!json.equals("error")) {
-            ArrayList<Classifica> classifiche = new ArrayList<>();
-            // id
-            // nome
-            // logo
-            // classifica-piloti
-            // classifica-team
-
-            try {
-
-                final JSONObject jsonObj = new JSONObject(json);
-
-                final JSONArray j_classifica = jsonObj.getJSONArray("campionati");
-                //CICLO PER TUTTE LE CLASSIFICHE DEI CAMPIONATI
-                for (int i = 0; i < j_classifica.length(); i++) {
-                    JSONObject a = j_classifica.getJSONObject(i);
-
-                    //LEGGO DATI DAL JSON
-                    Integer id = a.getInt("id");
-                    String nome_campionato = a.getString("nome");
-                    String logo_png = a.getString("logo");
-
-                    // region CONVERTO NOME DEL LOGO NEL "RESOURCE_ID" CORRISPONDETE
-                    String logo = Utili.getNameLogo(logo_png);
-                    Integer id_logo = Utili.getResId(this, logo);
-                    // endregion
-
-                    final JSONArray j_classifica_piloti = a.getJSONArray("classifica-piloti");
-                    //CICLO PER TUTTE LE GARE
-                    ArrayList<PuntiPilota> classifica_piloti = new ArrayList<>();
-                    for (int j = 0; j < j_classifica_piloti.length(); j++) {
-                        JSONObject b = j_classifica_piloti.getJSONObject(j);
-
-                        //LEGGO DATI DAL JSON
-                        String nome = b.getString("nome");
-                        String team = b.getString("team");
-                        String auto = b.getString("auto");
-                        Integer punti = b.getInt("punti");
-
-                        PuntiPilota punti_pilota = new PuntiPilota(nome, team, auto, punti);
-
-                        //INSERISCO LE GARE NEL CALENDARIO
-                        classifica_piloti.add(punti_pilota);
-                    }
-
-                    final JSONArray j_classifica_team = a.getJSONArray("classifica-team");
-                    //CICLO PER TUTTE LE IMPOSTAZIONI
-                    ArrayList<PuntiTeam> classifica_team = new ArrayList<>();
-                    for (int k = 0; k < j_classifica_team.length(); k++) {
-                        JSONObject c = j_classifica_team.getJSONObject(k);
-
-                        //LEGGO DATI DAL JSON
-                        String team = c.getString("team");
-                        String auto = c.getString("auto");
-                        Integer punti = c.getInt("punti");
-
-                        PuntiTeam punti_team = new PuntiTeam(team, auto, punti);
-                        //INSERISCO IMPOSTAZIONE NELLA LISTA DELLE IMPOSTZIONI
-                        classifica_team.add(punti_team);
-                    }
-
-                    // Creo nuova classifica per campionato
-                    Collections.sort(classifica_piloti);
-                    Collections.sort(classifica_team);
-                    cla = new Classifica(id, nome_campionato, id_logo, classifica_piloti, classifica_team);
-
-                    //Aggiungo campionato alla lista
-                    classifiche.add(cla);
-                }
-
-                //SALVO LA LISTA DELLE CLASSIFICHE
-                lista_classifiche.setLista_classifiche(classifiche);
-
-            } catch (final JSONException e) {
-                e.printStackTrace();
-                Utili.doToast(this, "Errore nella lettura dei dati");
-            }
-
-        }
     }
 
     // region IMPORTO MENU

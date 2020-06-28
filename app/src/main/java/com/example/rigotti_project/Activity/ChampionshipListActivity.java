@@ -54,8 +54,21 @@ public class ChampionshipListActivity extends AppCompatActivity {
 
         json = Utili.getCampionati(this);
 
-        ReadData();
-        db.updatePiloti();
+        nomi = new ArrayList<>();
+        imgID = new ArrayList<>();
+        champID = new ArrayList<>();
+
+        for (int i = 0; i < Utili.listaCampionati.getCampionati().size(); i++) {
+            Campionato a = Utili.listaCampionati.getCampionato(i);
+            //LEGGO DATI DAL JSON
+            Integer id = a.getId();
+            String nome = a.getNome();
+            Integer id_logo = a.getId_logo();
+            champID.add(id);
+            nomi.add(nome);
+            imgID.add(id_logo);
+        }
+
 
 
         lv = (ListView) findViewById(R.id.lista_campionati);

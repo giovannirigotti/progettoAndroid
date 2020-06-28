@@ -112,7 +112,6 @@ public class Campionato {
     }
 
     public void addPilota(Pilota nuovo_pilota) {
-        Log.e("NUOVO PILOTA", nuovo_pilota.getNome() + " " + nuovo_pilota.getAuto() + " " + nuovo_pilota.getTeam());
         piloti.add(nuovo_pilota);
 
     }

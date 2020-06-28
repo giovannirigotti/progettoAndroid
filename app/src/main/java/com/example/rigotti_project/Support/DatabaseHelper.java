@@ -178,7 +178,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-
+        Log.e("DB","Pilots updated");
         cursor.close();
         db.close();
 

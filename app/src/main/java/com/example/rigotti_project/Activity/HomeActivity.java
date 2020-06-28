@@ -38,6 +38,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         setTitle("Home");
 
+        //Carico i dati dal JSON
+        Utili.readCampionati(this);
+        Utili.readClassifiche(this);
+
         //Imposto immagine
         profile_image = (ImageView) findViewById(R.id.home_profile_image);
         String foto = PersonalData.getFOTO();
