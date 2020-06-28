@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.EditDataActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/seleziona_un_campionato_text" />
+
+    <Spinner
+        android:id="@+id/spinner_campionati"
+        android:layout_width="252dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView25"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_campionati"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="60dp"
+        android:text="@string/impostazioni_del_campionato_text" />
+
+    <ListView
+        android:id="@+id/lista_edit_impostazioni"
+        android:layout_width="380dp"
+        android:layout_height="530dp"
+        android:layout_below="@id/textView26"
+        android:layout_margin="15dp" />
+</RelativeLayout>

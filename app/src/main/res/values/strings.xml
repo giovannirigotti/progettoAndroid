@@ -84,4 +84,7 @@
     <string name="img_2_text">img_2</string>
     <string name="img_text">img</string>
     <string name="condividi_text">CONDIVIDI</string>
+    <string name="seleziona_un_campionato_text">Seleziona un campionato</string>
+    <string name="impostazioni_del_campionato_text">Impostazioni del campionato</string>
+    <string name="modifica_text">Modifica</string>
 </resources>
