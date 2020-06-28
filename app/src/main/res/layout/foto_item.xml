@@ -13,17 +13,25 @@
         app:srcCompat="@drawable/ic_image_black_24dp"
         android:contentDescription="@string/img_1_text" />
 
-
-
     <Button
-        android:layout_marginTop="50dp"
-        android:id="@+id/foto_btn"
+        android:layout_marginTop="45dp"
+        android:id="@+id/foto_open"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_toEndOf="@id/foto_img"
         android:layout_marginStart="25dp"
         android:backgroundTint="#00BCD4"
         android:text="@string/text_apri" />
+
+    <Button
+        android:layout_marginTop="45dp"
+        android:id="@+id/foto_share"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/foto_open"
+        android:layout_marginStart="25dp"
+        android:backgroundTint="#00BCD4"
+        android:text="@string/condividi_text" />
 
 
 </RelativeLayout>

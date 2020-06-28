@@ -3,6 +3,11 @@ package com.example.rigotti_project.Support;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -18,9 +23,13 @@ import com.example.rigotti_project.Championship.Pilota;
 import com.example.rigotti_project.R;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -221,6 +230,18 @@ public class Utili {
         Log.println(Log.ERROR, "nome_risorsa", nome_risorsa);
         int resourceID = context.getResources().getIdentifier(nome_risorsa, "drawable", context.getPackageName());
         return resourceID;
+    }
+
+    public static void shareImage(Activity context, Integer resource_id){
+        Bitmap b =BitmapFactory.decodeResource(context.getResources(),resource_id);
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/jpeg");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        b.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(),b, "Title", null);
+        Uri imageUri =  Uri.parse(path);
+        share.putExtra(Intent.EXTRA_STREAM, imageUri);
+        context.startActivity(Intent.createChooser(share, "Select"));
     }
 
     public static Integer isMember(Integer id_campionato) {

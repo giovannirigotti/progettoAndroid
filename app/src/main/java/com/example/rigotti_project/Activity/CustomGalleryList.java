@@ -24,6 +24,8 @@ public class CustomGalleryList extends ArrayAdapter<String> {
 
     private ArrayList<Integer> ids_foto;
     private ArrayList<String> nomi_foto;
+    private String stringToPass;
+    private Integer resource_id;
 
     private Activity context;
 
@@ -52,14 +54,24 @@ public class CustomGalleryList extends ArrayAdapter<String> {
             viewHolder = (ViewHolder) r.getTag();
         }
         viewHolder.img.setImageResource(ids_foto.get(position));
-        viewHolder.btn.setOnClickListener(new View.OnClickListener() {
+        viewHolder.btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String[] splitted = nomi_foto.get(position).split("_");
-                String stringToPass = splitted[1];
+                stringToPass = splitted[1];
+                resource_id = Utili.getResId(context, stringToPass);
                 Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra("nome_risorsa", stringToPass);
+                intent.putExtra("id_risorsa", resource_id);
                 context.startActivity(intent);
+            }
+        });
+        viewHolder.btn_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String[] splitted = nomi_foto.get(position).split("_");
+                stringToPass = splitted[1];
+                resource_id = Utili.getResId(context, stringToPass);
+                Utili.shareImage(context,resource_id);
             }
         });
 
@@ -69,12 +81,13 @@ public class CustomGalleryList extends ArrayAdapter<String> {
 
     class ViewHolder {
         ImageView img;
-        Button btn;
+        Button btn_open, btn_share;
 
 
         ViewHolder(View v) {
             img = v.findViewById(R.id.foto_img);
-            btn = v.findViewById(R.id.foto_btn);
+            btn_open = v.findViewById(R.id.foto_open);
+            btn_share = v.findViewById(R.id.foto_share);
 
 
 
