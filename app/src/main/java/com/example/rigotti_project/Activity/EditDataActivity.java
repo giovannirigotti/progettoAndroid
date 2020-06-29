@@ -84,7 +84,7 @@ public class EditDataActivity extends AppCompatActivity implements AdapterView.O
             valori.add(camp_to_edit.getImpostazioni().get(j).getValore());
         }
 
-        CustomEditDataListView custom = new CustomEditDataListView(EditDataActivity.this, tipi, valori);
+        CustomEditDataListView custom = new CustomEditDataListView(EditDataActivity.this, tipi, valori,position);
         lv.setAdapter(custom);
         Utili.doToast(EditDataActivity.this, "Impostazioni del campionato:\n\"" + parent.getItemAtPosition(position).toString() + "\" caricate con successo!");
     }

@@ -116,6 +116,15 @@ public class Campionato {
 
     }
 
+    public void updateImpostazione(Impostazione impostazione) {
+        for (int i = 0; i < this.impostazioni.size(); i++) {
+            String old_tipo = this.impostazioni.get(i).getTipo();
+            if(old_tipo.equals(impostazione.getTipo())){
+                this.impostazioni.get(i).setValore(impostazione.getValore());
+            }
+        }
+    }
+
     //endregion
 
 }

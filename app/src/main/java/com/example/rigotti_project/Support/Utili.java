@@ -66,8 +66,8 @@ public class Utili {
 
     private static Integer STATUS = NEVER_LOGGED;
 
-    public static ListaCampionati listaCampionati;
-    public static ListaClassifiche listaClassifiche;
+    public static ListaCampionati listaCampionati = null;
+    public static ListaClassifiche listaClassifiche = null;
 
     // get e set STATUS
     public static Integer getSTATUS() {
@@ -136,6 +136,13 @@ public class Utili {
         // Se il testo inserito dall'utente è composto solo da caratteri
         // alfabetici ed è più corto di "maxLenght" allora ok altrimento no.
         String regex = "^[a-zA-Z_ ]*$";
+        return (text.length() <= maxLenght && text.matches(regex)) ? true : false;
+    }
+
+    public static boolean validateSimpleCommaText(String text, int maxLenght) {
+        // Se il testo inserito dall'utente è composto solo da caratteri
+        // alfabetici ed è più corto di "maxLenght" allora ok altrimento no.
+        String regex = "^[a-zA-Z,_ ]*$";
         return (text.length() <= maxLenght && text.matches(regex)) ? true : false;
     }
 
@@ -217,9 +224,12 @@ public class Utili {
     }
 
     public static void readCampionati(Activity activity) {
-        GetCampionati getCampionati = new GetCampionati(activity);
-        getCampionati.execute();
-
+        if (listaCampionati == null) {
+            GetCampionati getCampionati = new GetCampionati(activity);
+            getCampionati.execute();
+        } else {
+            Log.wtf("DATA", "Campionati already charged");
+        }
     }
 
     public static String getClassifiche(Activity activity) {
@@ -245,8 +255,12 @@ public class Utili {
     }
 
     public static void readClassifiche(Activity activity) {
-        GetClassifiche getClassifiche = new GetClassifiche(activity);
-        getClassifiche.execute();
+        if (listaClassifiche == null) {
+            GetClassifiche getClassifiche = new GetClassifiche(activity);
+            getClassifiche.execute();
+        } else {
+            Log.wtf("DATA", "Classifiche already charged");
+        }
     }
 
     public static String getNameLogo(String logo_png) {
@@ -301,6 +315,7 @@ public class Utili {
 
         @Override
         protected Void doInBackground(Void... arg0) {
+            DatabaseHelper db = new DatabaseHelper(context);
             String json = getCampionati(context);
             if (!json.equals("error")) {
                 ListaCampionati campionati = new ListaCampionati();
@@ -402,7 +417,7 @@ public class Utili {
 
                 } catch (final JSONException e) {
                     e.printStackTrace();
-                    Utili.doToast(context,"Errore caricamento dati");
+                    Utili.doToast(context, "Errore caricamento dati");
                 }
             }
             return null;
@@ -413,6 +428,9 @@ public class Utili {
             super.onPostExecute(result);
             DatabaseHelper db = new DatabaseHelper(context);
             db.updatePiloti();
+            if(!db.isRulesEmpty()){
+                db.updateRules();
+            }
             Log.e("JSON", "Campionati caricati");
         }
     }
@@ -428,7 +446,7 @@ public class Utili {
 
         protected void onPreExecute() {
             super.onPreExecute();
-            Log.e("JSON","classifiche.json is downloading");
+            Log.e("JSON", "classifiche.json is downloading");
         }
 
         @Override
@@ -522,7 +540,7 @@ public class Utili {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            Log.e("JSON","Classifiche caricate");
+            Log.e("JSON", "Classifiche caricate");
         }
 
 

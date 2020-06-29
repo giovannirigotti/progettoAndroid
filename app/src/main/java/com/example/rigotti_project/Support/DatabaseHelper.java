@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.rigotti_project.Championship.Campionato;
+import com.example.rigotti_project.Championship.Impostazione;
 import com.example.rigotti_project.Championship.ListaCampionati;
 import com.example.rigotti_project.Championship.Pilota;
 
@@ -38,6 +39,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String C_NOME_PILOTA = "nome";
     public static final String C_TEAM = "team";
 
+    public static final String TABLE_RULES = "rules";
+    public static final String C_ID_CAMP = C_ID_CAMPIONATO;
+    public static final String C_TIPO = "tipo";
+    public static final String C_VALORE = "valore";
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -55,12 +61,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "nazione TEXT, numero INTEGER, circuito_preferito TEXT," +
                 "circuito_odiato TEXT, auto TEXT, foto TEXT, password TEXT)";
         db.execSQL(queryUser);
+        Log.e("DB", "CREO IMPOSTAZIONI");
+        String queryImpo = "CREATE TABLE rules (id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "champ_id INTEGER, tipo TEXT, valore TEXT)";
+        db.execSQL(queryImpo);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_INSCRIPTIONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RULES);
         onCreate(db);
     }
 
@@ -178,7 +189,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 cursor.moveToNext();
             }
         }
-        Log.e("DB","Pilots updated");
+        Log.e("DB", "Pilots updated");
         cursor.close();
         db.close();
 
@@ -206,6 +217,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Utili.listaCampionati.getCampionato(id_campionato).setPiloti(piloti);
     }
 
+    //ALTERNATIVA
     public boolean isMember(Integer id_campionato) {
         String[] columns = {C_ID_ENROLL};
         SQLiteDatabase db = getReadableDatabase();
@@ -216,6 +228,62 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         c.close();
 
         return (count > 0) ? true : false;
+    }
+
+    // endregion
+
+    // region GETIONE TABELLA RULES
+
+    public long changeRule(Integer id_campionato, String tipo, String valore, Integer position) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(C_ID_CAMP, id_campionato);
+        cv.put(C_TIPO, tipo);
+        cv.put(C_VALORE, valore);
+        long res = db.insert(TABLE_RULES, null, cv);
+        db.close();
+        // Modifico valore nella lista.
+        Utili.listaCampionati.getCampionato(id_campionato).getImpostazioni().get(position).setValore(valore);
+        return res;
+    }
+
+    public void updateRules() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_RULES;
+        String[] columns = {C_ID_CAMP, C_TIPO, C_VALORE};
+        Cursor cursor = db.query(TABLE_RULES, columns, null, null, null, null, null);
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast()) {
+                Integer id_campionato = cursor.getInt(0);
+                String tipo = cursor.getString(1);
+                String valore = cursor.getString(2);
+
+                Impostazione impostazione = new Impostazione(tipo, valore);
+                Utili.listaCampionati.getCampionato(id_campionato).updateImpostazione(impostazione);
+                cursor.moveToNext();
+            }
+        }
+        Log.e("DB", "Impostazioni updated");
+        cursor.close();
+        db.close();
+
+    }
+
+    public boolean isRulesEmpty() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + TABLE_RULES;
+        String[] columns = {C_ID_CAMP, C_TIPO, C_VALORE};
+        Cursor cursor = db.query(TABLE_RULES, columns, null, null, null, null, null);
+        if (cursor.getCount() > 0) {
+            cursor.close();
+            db.close();
+            return false;
+        } else {
+            cursor.close();
+            db.close();
+            return true;
+        }
+
     }
 
     // endregion

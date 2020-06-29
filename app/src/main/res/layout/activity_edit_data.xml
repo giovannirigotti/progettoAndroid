@@ -11,31 +11,35 @@
         android:id="@+id/textView25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/seleziona_un_campionato_text" />
+        android:text="@string/seleziona_un_campionato_text"
+        android:textColor="#000000"
+        android:textSize="18sp" />
 
     <Spinner
         android:id="@+id/spinner_campionati"
         android:layout_width="252dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView25"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:id="@+id/textView26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/spinner_campionati"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="60dp"
-        android:text="@string/impostazioni_del_campionato_text" />
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/impostazioni_del_campionato_text"
+        android:textColor="#000000"
+        android:textSize="18sp" />
 
     <ListView
         android:id="@+id/lista_edit_impostazioni"
-        android:layout_width="380dp"
+        android:layout_width="wrap_content"
         android:layout_height="530dp"
         android:layout_below="@id/textView26"
-        android:layout_margin="15dp" />
+        android:layout_margin="5dp" />
 </RelativeLayout>
