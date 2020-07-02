@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.rigotti_project.Championship.Campionato;
 import com.example.rigotti_project.Championship.CustomSettingsListView;
@@ -22,12 +23,16 @@ import java.util.ArrayList;
 public class SettingsActivity extends AppCompatActivity {
     private Integer indice_campionato;
     private ListView lv;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        setTitle("Impostazioni");
+
+        title = (TextView) findViewById(R.id.setting_title);
+        title.setText("Impostazioni");
+
 
         //Setto indice_campionato
         // region CHECK INTENT
@@ -45,6 +50,9 @@ public class SettingsActivity extends AppCompatActivity {
             }
         }
         // endregion //
+
+        setTitle(Utili.listaCampionati.getCampionato(indice_campionato).getNome());
+
 
         Campionato campionato = Utili.listaCampionati.getCampionato(indice_campionato);
         ArrayList<String> tipi = new ArrayList<>();

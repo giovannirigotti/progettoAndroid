@@ -34,14 +34,17 @@ public class PilotsActivity extends AppCompatActivity {
     private ArrayList<Pilota> piloti;
 
     private ListView lv;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pilots);
-        setTitle("Iscritti");
         campionato = new Campionato();
         piloti = new ArrayList<>();
+
+        title = (TextView) findViewById(R.id.pilots_title);
+        title.setText("Iscritti");
 
         nomi = new ArrayList<>();
         auto = new ArrayList<>();
@@ -61,6 +64,9 @@ public class PilotsActivity extends AppCompatActivity {
             Intent new_i = new Intent(this, HomeActivity.class);
             startActivity(new_i);
         }
+
+        setTitle(Utili.listaCampionati.getCampionato(indice_campionato).getNome());
+
 
         campionato = Utili.listaCampionati.getCampionato(indice_campionato);
         piloti = campionato.getPiloti();

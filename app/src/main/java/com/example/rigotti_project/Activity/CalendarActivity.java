@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.rigotti_project.Championship.Campionato;
 import com.example.rigotti_project.Championship.CustomCalendarListView;
@@ -30,6 +31,7 @@ public class CalendarActivity extends AppCompatActivity {
     private Campionato campionato;
 
     private ListView lv;
+    private TextView title;
 
     private ArrayList<String> date, circuiti;
     private ArrayList<Integer> sequenze;
@@ -40,11 +42,14 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        setTitle("Calendario");
+
         campionato = new Campionato();
         date = new ArrayList<>();
         circuiti = new ArrayList<>();
         sequenze = new ArrayList<>();
+
+        title = (TextView) findViewById(R.id.calendar_title);
+        title.setText("Calendario");
 
         Intent i = getIntent();
         if (!i.hasExtra("indice_campionato")) {
@@ -64,8 +69,9 @@ public class CalendarActivity extends AppCompatActivity {
         campionato = Utili.listaCampionati.getCampionato(indice_campionato);
         calendario = campionato.getCalendario();
 
-        getRacesData();
+        setTitle(Utili.listaCampionati.getCampionato(indice_campionato).getNome());
 
+        getRacesData();
 
         lv = (ListView) findViewById(R.id.lista_gare);
         CustomCalendarListView custom = new CustomCalendarListView(this, circuiti, sequenze, date);

@@ -157,7 +157,6 @@ public class HomeActivity extends AppCompatActivity {
             notification_builder.setSmallIcon(R.drawable.ic_notifica)
                     .setContentTitle(title)
                     .setContentText(text)
-                    .setShowWhen(true)
                     .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                     .setAutoCancel(true)
                     .setContentIntent(pi);

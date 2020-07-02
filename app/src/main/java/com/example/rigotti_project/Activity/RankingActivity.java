@@ -46,7 +46,7 @@ public class RankingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
-        setTitle("Classifiche");
+
         lista_classifiche = new ListaClassifiche();
 
         //Setto indice_campionato
@@ -65,6 +65,8 @@ public class RankingActivity extends AppCompatActivity {
             }
         }
         // endregion //
+
+        setTitle(Utili.listaCampionati.getCampionato(indice_campionato).getNome());
 
         lista_classifiche = Utili.listaClassifiche;
         classifica = lista_classifiche.getLista_classifiche().get(indice_campionato);

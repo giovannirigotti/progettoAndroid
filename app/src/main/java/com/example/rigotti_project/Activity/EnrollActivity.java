@@ -21,8 +21,6 @@ import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.DatabaseHelper;
 import com.example.rigotti_project.Support.Utili;
 
-import java.util.ArrayList;
-
 public class EnrollActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     //GESTIONE
