@@ -97,6 +97,11 @@ public class CustomEditDataListView extends ArrayAdapter<String> {
                         String ti = Utili.listaCampionati.getCampionato(camp).getImpostazioni().get(pos).getTipo();
                         //CAMBIO VALORE SU DB E IN LOCALE
                         db.changeRule(camp, ti, value, pos);
+                        Utili.VALORE = value;
+                        Utili.TIPO = ti;
+                        Utili.CAMPIONATO = Utili.listaCampionati.getCampionato(camp).getNome();
+                        Utili.MODIFICA = 1;
+                        Utili.CAMP = camp;
                         String msg = "Valore aggiornato correttamente";
                         Utili.doToast(context, msg);
                         Intent i = new Intent(v.getContext(), HomeActivity.class);
@@ -116,6 +121,7 @@ public class CustomEditDataListView extends ArrayAdapter<String> {
             @Override
             public void onClick(View v) {
                 Utili.doToast(v.getContext(), "Valore NON aggiornato.");
+                Utili.MODIFICA = 2;
                 Intent i = new Intent(v.getContext(), EditDataActivity.class);
                 context.startActivity(i);
             }

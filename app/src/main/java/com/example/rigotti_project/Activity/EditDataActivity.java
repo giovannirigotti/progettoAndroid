@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.example.rigotti_project.Championship.Campionato;
-import com.example.rigotti_project.Championship.CustomSettingsListView;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 

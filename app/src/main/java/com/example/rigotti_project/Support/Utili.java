@@ -7,12 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.example.rigotti_project.Activity.AccounActivity;
@@ -38,12 +35,9 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -63,6 +57,12 @@ public class Utili {
     //  1 --> loggato
 
     public static final Integer NUMERO_FOTO = 30;
+
+    public static Integer MODIFICA = 0; //1 se modifico dati
+    public static String TIPO = null; //
+    public static String CAMPIONATO = null; //
+    public static String VALORE = null; //
+    public static Integer CAMP = null;
 
     private static Integer STATUS = NEVER_LOGGED;
 
