@@ -16,6 +16,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+// ---------------------------------
+// ---------------------------------
+// Classe per la creazione di una ListView personalizzata
+// Nello specifico crea una ListView per visualizzare i risultati dei team ad una gara
+// ---------------------------------
+// ---------------------------------
+
 public class CustomTeamResultsListView extends ArrayAdapter<String> {
 
     private ArrayList<Integer> punti;

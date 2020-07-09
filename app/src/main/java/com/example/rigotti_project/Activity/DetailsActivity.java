@@ -15,6 +15,13 @@ import android.widget.ImageView;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione in dettaglio di una foto
+// e la sua eventuale condivisione
+// ---------------------------------
+// ---------------------------------
+
 public class DetailsActivity extends AppCompatActivity {
 
     //VIEW
@@ -48,6 +55,7 @@ public class DetailsActivity extends AppCompatActivity {
         //prendo ImageView e Button
         img = (ImageView) findViewById(R.id.dettagli_img);
         btn_share = (Button) findViewById(R.id.dettagli_btn);
+        btn_share.setText("CONDIVIDI");
         //setto immagine tramite resource_id (int)
         img.setImageResource(id_risorsa);
         //setto OnClickListener

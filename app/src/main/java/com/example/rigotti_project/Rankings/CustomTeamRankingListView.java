@@ -14,6 +14,13 @@ import com.example.rigotti_project.R;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Classe per la creazione di una ListView personalizzata
+// Nello specifico crea una ListView per visualizzare la classifica dei team in un campionato
+// ---------------------------------
+// ---------------------------------
+
 public class CustomTeamRankingListView extends ArrayAdapter<String> {
 
     private ArrayList<Integer> punti;

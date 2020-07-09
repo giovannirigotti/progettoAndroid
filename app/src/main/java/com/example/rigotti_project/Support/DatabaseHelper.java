@@ -14,6 +14,11 @@ import com.example.rigotti_project.Championship.Pilota;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Classe di supporto per la gestione e la comunicazione con il DB SQLite
+// ---------------------------------
+// ---------------------------------
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -215,19 +220,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
         Utili.listaCampionati.getCampionato(id_campionato).setPiloti(piloti);
-    }
-
-    //ALTERNATIVA
-    public boolean isMember(Integer id_campionato) {
-        String[] columns = {C_ID_ENROLL};
-        SQLiteDatabase db = getReadableDatabase();
-        String selection = C_ID_CAMPIONATO + "=?" + " and " + C_ID_UTENTE + "=?";
-        String[] selectionArgs = {id_campionato.toString(), PersonalData.getID().toString()};
-        Cursor c = db.query(TABLE_INSCRIPTIONS, columns, selection, selectionArgs, null, null, null);
-        int count = c.getCount();
-        c.close();
-
-        return (count > 0) ? true : false;
     }
 
     // endregion

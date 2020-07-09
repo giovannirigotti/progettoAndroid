@@ -10,6 +10,7 @@
         android:id="@+id/tv_forum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:autoLink="web"
         android:text="@string/text_forum"
         android:textAlignment="center"
         android:textColor="#2196F3"

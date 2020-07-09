@@ -14,12 +14,22 @@ import com.example.rigotti_project.Support.PersonalData;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per il login di un utente
+// Consente inserimento di email e password
+// Consente di passare alla Activity per la registrazione
+// ---------------------------------
+// ---------------------------------
 
 public class LoginActivity extends AppCompatActivity {
 
+    // DB
+    private DatabaseHelper db;
+
+    // Variabili
     private EditText email, password;
     private String s_email, s_password;
-    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +42,10 @@ public class LoginActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email_text);
         password = (EditText) findViewById(R.id.password_text);
 
+        // Controllo se l'intent ha un'email o meno
+        // Se ha l'email significa che è appena stata svolta una registrazione
+        // (Facilito la vita all'utente e pre-inserisco l'email)
         Intent i = getIntent();
-
         if (i.hasExtra("email")) {
             Utili.doToast(this, "Registrazione effettuata correttamente!\n" +
                     "Esegui il login e accedi");
@@ -72,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                         String password = cursor.getString(11);
 
                         //SETTO I DATI IN LOCALE PRESI DAL DB
-                        PersonalData.setAllData(id,nome,cognome,email,data,nazione,numero,preferito,odiato,auto,foto,password);
+                        PersonalData.setAllData(id, nome, cognome, email, data, nazione, numero, preferito, odiato, auto, foto, password);
 
                     }
                     //Vado alla nuova activity
@@ -97,8 +109,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // Metodo per controllare i dati immessi dall'utente
     public boolean checkLoginData() {
-
         s_email = email.getText().toString().trim();
         s_password = password.getText().toString().trim();
 
@@ -117,7 +129,6 @@ public class LoginActivity extends AppCompatActivity {
             Utili.doToast(this, err);
             return false;
         }
-
         //se l'utente ha inserito dei dati -->
         //controllo che corrispondano ad un utente esistente chiamando il metodo "checkUserPassword(email, password)"
         return (db.checkUserPassword(s_email, s_password)) ? true : false;
@@ -125,7 +136,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //BLOCCO BOTTONE INDIETRO PER EVITARE DI RIACCEDERE SENZA ESEGUIRE IL LOGIN
-
     @Override
     public void onBackPressed() {
         if (Utili.getSTATUS() == 0) {

@@ -14,6 +14,13 @@ import com.example.rigotti_project.R;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Classe per la creazione di una ListView personalizzata
+// Nello specifico crea una ListView per visualizzare le regole/impostazioni di un campionato
+// ---------------------------------
+// ---------------------------------
+
 public class CustomSettingsListView extends ArrayAdapter<String> {
 
     private ArrayList<String> tipi;

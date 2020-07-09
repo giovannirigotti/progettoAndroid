@@ -8,20 +8,24 @@ import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 
+// ---------------------------------
+// ---------------------------------
+// Classe di supporto per la gestione delle immagini (BitMap)
+// ---------------------------------
+// ---------------------------------
+
 public class ImageManager {
 
     public static final int IMAGE_PICK_CODE = 1000;
     public static final int PERMISSION_CODE = 1001;
 
-
     public static void chooseFile(Activity activity) {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
-        ((Activity)activity).startActivityForResult(intent, ImageManager.IMAGE_PICK_CODE);
+        ((Activity) activity).startActivityForResult(intent, ImageManager.IMAGE_PICK_CODE);
     }
 
-
-    // METODI PER CONVERTIRE IMMAGINI Bitmap in String e viceversa
+    //  region METODI PER CONVERTIRE IMMAGINI Bitmap in String e viceversa
 
     public static String BitMapToString(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -43,5 +47,7 @@ public class ImageManager {
             return null;
         }
     }
+
+    // endregion
 
 }

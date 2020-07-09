@@ -21,6 +21,14 @@ import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.DatabaseHelper;
 import com.example.rigotti_project.Support.Utili;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per l'iscrizione ad un campionato
+// Consente visualizzazione delle auto permesse
+// Consente inserimento del Team con il quale si gareggia
+// ---------------------------------
+// ---------------------------------
+
 public class EnrollActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     //GESTIONE
@@ -43,7 +51,7 @@ public class EnrollActivity extends AppCompatActivity implements AdapterView.OnI
         setContentView(R.layout.activity_enroll);
         setTitle("Iscrizione");
 
-        //Setto indice_campionato
+        // Setto indice_campionato se intente passatto correttamente
         // region CHECK INTENT
         Intent i = getIntent();
         if (!i.hasExtra("indice_campionato")) {
@@ -65,12 +73,12 @@ public class EnrollActivity extends AppCompatActivity implements AdapterView.OnI
         btn_iscriviti = (Button) findViewById(R.id.btn_enroll_iscriviti);
         et_team = (EditText) findViewById(R.id.enroll_team);
 
-
         c = Utili.listaCampionati.getCampionato(indice_campionato);
         db = new DatabaseHelper(this);
         auto = c.getAuto();
         automobili = auto.split(",");
 
+        // Popolo spinner con auto permesse nel campionato
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(EnrollActivity.this,
                 android.R.layout.simple_spinner_item, automobili);
 
@@ -81,6 +89,7 @@ public class EnrollActivity extends AppCompatActivity implements AdapterView.OnI
         btn_iscriviti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Se i dati inseriti sono OK procedo con l'iscrizione
                 if (checkEntry()) {
                     db.addEntry(indice_campionato,auto_to_add,team_to_add);
                     Log.e("DATI", "auto: "+ auto_to_add + " team: " + team_to_add);
@@ -94,6 +103,7 @@ public class EnrollActivity extends AppCompatActivity implements AdapterView.OnI
 
     }
 
+    // Metodo per controllare correttezza dei dati inseriti
     public boolean checkEntry() {
         team_to_add = et_team.getText().toString();
         if (team_to_add.isEmpty() || auto_to_add.isEmpty()) {

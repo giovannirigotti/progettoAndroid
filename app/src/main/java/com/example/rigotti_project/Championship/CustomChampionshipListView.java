@@ -15,6 +15,13 @@ import com.example.rigotti_project.R;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Classe per la creazione di una ListView personalizzata
+// Nello specifico crea una ListView per visualizzare la lista dei campionati disponibili
+// ---------------------------------
+// ---------------------------------
+
 public class CustomChampionshipListView extends ArrayAdapter<String> {
 
     private ArrayList<Integer> imgID;

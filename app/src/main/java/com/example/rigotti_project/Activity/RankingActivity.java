@@ -5,36 +5,30 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.example.rigotti_project.Championship.Campionato;
-import com.example.rigotti_project.Championship.CustomChampionshipListView;
-import com.example.rigotti_project.Championship.Gara;
-import com.example.rigotti_project.Championship.Impostazione;
-import com.example.rigotti_project.Championship.ListaCampionati;
-import com.example.rigotti_project.Championship.Pilota;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Rankings.Classifica;
 import com.example.rigotti_project.Rankings.CustomPilotRankingListView;
 import com.example.rigotti_project.Rankings.CustomTeamRankingListView;
 import com.example.rigotti_project.Rankings.ListaClassifiche;
-import com.example.rigotti_project.Rankings.PuntiPilota;
-import com.example.rigotti_project.Rankings.PuntiTeam;
 import com.example.rigotti_project.Support.Utili;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Collections;
+
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione dei classifica piloti e team al campionato
+// Consente di le due ListView contenenti le classifiche
+// ---------------------------------
+// ---------------------------------
 
 public class RankingActivity extends AppCompatActivity {
 
+    // Variabili
     private ListaClassifiche lista_classifiche;
     private Classifica classifica;
     private Integer indice_campionato;
@@ -68,8 +62,11 @@ public class RankingActivity extends AppCompatActivity {
 
         setTitle(Utili.listaCampionati.getCampionato(indice_campionato).getNome());
 
+        // Carico dati dal salvataggio in locale
         lista_classifiche = Utili.listaClassifiche;
         classifica = lista_classifiche.getLista_classifiche().get(indice_campionato);
+
+        // Popolo ArrayList per la ListView customizzata piloti
         ArrayList<String> p_nomi = new ArrayList<>();
         ArrayList<String> p_team = new ArrayList<>();
         ArrayList<String> p_auto = new ArrayList<>();
@@ -81,6 +78,7 @@ public class RankingActivity extends AppCompatActivity {
             p_punti.add(classifica.getClassifica_piloti().get(j).getPunti());
         }
 
+        // Popolo ArrayList per la ListView customizzata team
         ArrayList<String> t_team = new ArrayList<>();
         ArrayList<String> t_auto = new ArrayList<>();
         ArrayList<Integer> t_punti = new ArrayList<>();
@@ -90,10 +88,12 @@ public class RankingActivity extends AppCompatActivity {
             t_punti.add(classifica.getClassifica_team().get(j).getPunti());
         }
 
+        // Creo e visualizzo ListView customizzata piloti
         lv_piloti = (ListView) findViewById(R.id.classifica_piloti);
         CustomPilotRankingListView c1 = new CustomPilotRankingListView(RankingActivity.this, p_nomi, p_team, p_auto, p_punti);
         lv_piloti.setAdapter(c1);
 
+        // Creo e visualizzo ListView customizzata team
         lv_team = (ListView) findViewById(R.id.classifica_team);
         CustomTeamRankingListView c2 = new CustomTeamRankingListView(RankingActivity.this, t_team, t_auto, t_punti);
         lv_team.setAdapter(c2);

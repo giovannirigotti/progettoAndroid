@@ -45,6 +45,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
+// ---------------------------------
+// ---------------------------------
+// Classe di supporto con metodi, variabili di stato, ecc..
+// ---------------------------------
+// ---------------------------------
+
 public class Utili {
 
     public static final Integer NEVER_LOGGED = -1;
@@ -58,7 +64,7 @@ public class Utili {
 
     public static final Integer NUMERO_FOTO = 30;
 
-    public static Integer MODIFICA = 0; //1 se modifico dati
+    public static Integer MODIFICA = 0; //1 se modifico dati, 2 se modifica annullata
     public static String TIPO = null; //
     public static String CAMPIONATO = null; //
     public static String VALORE = null; //
@@ -153,7 +159,6 @@ public class Utili {
         Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
     }
 
-
     // LOGOUT
 
     public static void doLogout(Activity activity) {
@@ -163,7 +168,7 @@ public class Utili {
         ((Activity) activity).startActivity(i);
     }
 
-    // region MENU
+    // MENU
 
     public static boolean setMenu(Activity activity, MenuItem item) {
         Integer id = item.getItemId();
@@ -198,9 +203,9 @@ public class Utili {
         return false;
     }
 
-    // endregion
+    // region JSON HELPER
 
-    //JSON HELPER
+    // restituisco json campionati sotto forma di stringa
     public static String getCampionati(Activity activity) {
         String res = "";
         InputStream is = activity.getResources().openRawResource(R.raw.campionati);
@@ -223,6 +228,7 @@ public class Utili {
         return res;
     }
 
+    // Chiamo servizio in beckground (perchè è lento) di lettura JSON
     public static void readCampionati(Activity activity) {
         if (listaCampionati == null) {
             GetCampionati getCampionati = new GetCampionati(activity);
@@ -232,6 +238,7 @@ public class Utili {
         }
     }
 
+    // restituisco json classifiche sotto forma di stringa
     public static String getClassifiche(Activity activity) {
         String res = "";
         InputStream is = activity.getResources().openRawResource(R.raw.classifiche);
@@ -254,6 +261,7 @@ public class Utili {
         return res;
     }
 
+    // Chiamo servizio in beckground (perchè è lento) di lettura JSON
     public static void readClassifiche(Activity activity) {
         if (listaClassifiche == null) {
             GetClassifiche getClassifiche = new GetClassifiche(activity);
@@ -263,15 +271,18 @@ public class Utili {
         }
     }
 
+    // Dato un file con estensione restituisce solo il nome senza estensione
     public static String getNameLogo(String logo_png) {
         return logo_png.split("\\.")[0];
     }
 
+    // Dato un nome ritorna l'id della risorsa (drawable)
     public static Integer getResId(Activity context, String nome_risorsa) {
         int resourceID = context.getResources().getIdentifier(nome_risorsa, "drawable", context.getPackageName());
         return resourceID;
     }
 
+    // Condivisione di un'immagine
     public static void shareImage(Activity context, Integer resource_id) {
         Bitmap b = BitmapFactory.decodeResource(context.getResources(), resource_id);
         Intent share = new Intent(Intent.ACTION_SEND);
@@ -284,6 +295,7 @@ public class Utili {
         context.startActivity(Intent.createChooser(share, "Select"));
     }
 
+    // Controlla se un utente è iscritto o meno ad un campionato
     public static Integer isMember(Integer id_campionato) {
         ArrayList<Pilota> membri = listaCampionati.getCampionato(id_campionato).getPiloti();
         String my_name = PersonalData.getNOME() + " " + PersonalData.getCOGNOME();
@@ -298,7 +310,7 @@ public class Utili {
         return res;
     }
 
-    // Caricp tutti i dati contenuti nel json in background
+    // Carico tutti i dati contenuti nel json in background
     public static class GetCampionati extends AsyncTask<Void, Void, Void> {
 
         private Activity context;
@@ -428,13 +440,14 @@ public class Utili {
             super.onPostExecute(result);
             DatabaseHelper db = new DatabaseHelper(context);
             db.updatePiloti();
-            if(!db.isRulesEmpty()){
+            if (!db.isRulesEmpty()) {
                 db.updateRules();
             }
             Log.e("JSON", "Campionati caricati");
         }
     }
 
+    // Carico tutti i dati contenuti nel json in background
     public static class GetClassifiche extends AsyncTask<Void, Void, Void> {
 
         private Activity context;
@@ -545,6 +558,8 @@ public class Utili {
 
 
     }
+
+    // endregion
 }
 
 

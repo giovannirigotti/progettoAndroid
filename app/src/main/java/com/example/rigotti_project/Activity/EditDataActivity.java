@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -19,6 +18,14 @@ import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 
 import java.util.ArrayList;
+
+// ---------------------------------
+// ---------------------------------
+// Activity per testare il servizio in background di notifica
+// Si visualizzano le impostazioni dei campionati e si possono modificare
+// A modifica avvenuta una variabile di stato Utili.MODIFICA viene aggiornata e il servizio se ne accorge
+// ---------------------------------
+// ---------------------------------
 
 public class EditDataActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     //View
@@ -45,9 +52,11 @@ public class EditDataActivity extends AppCompatActivity implements AdapterView.O
             nomi_campionati[i]=Utili.listaCampionati.getCampionato(i).getNome();
         }
 
+        // Popolo lo spinner con i vari campionati
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, nomi_campionati);
 
+        // Creo spinner funzionante
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -75,6 +84,7 @@ public class EditDataActivity extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        // Quando premo su un elemento aggiorno la ListView contente le impostazioni del campionato
         camp_to_edit = Utili.listaCampionati.getCampionato(position);
         ArrayList<String> tipi = new ArrayList<>();
         ArrayList<String> valori = new ArrayList<>();
@@ -85,11 +95,12 @@ public class EditDataActivity extends AppCompatActivity implements AdapterView.O
 
         CustomEditDataListView custom = new CustomEditDataListView(EditDataActivity.this, tipi, valori,position);
         lv.setAdapter(custom);
-        Utili.doToast(EditDataActivity.this, "Impostazioni del campionato:\n\"" + parent.getItemAtPosition(position).toString() + "\" caricate con successo!");
+        // DEBUG
+        // Utili.doToast(EditDataActivity.this, "Impostazioni del campionato:\n\"" + parent.getItemAtPosition(position).toString() + "\" caricate con successo!");
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
+        // DEFAULT
     }
 }

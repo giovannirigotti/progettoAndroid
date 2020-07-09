@@ -3,7 +3,6 @@ package com.example.rigotti_project.Activity;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,12 +20,23 @@ import com.example.rigotti_project.Support.Utili;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Classe per la creazione di una ListView personalizzata
+// Nello specifico crea una ListView per visualizzare le impostazioni dei campionati e poterle persino modificare
+// ---------------------------------
+// ---------------------------------
+
 public class CustomEditDataListView extends ArrayAdapter<String> {
 
+    private Integer indice_campionato;
+
+    // DB
+    private DatabaseHelper db;
+
+    // Per popolare la ListView
     private ArrayList<String> tipi;
     private ArrayList<String> valori;
-    private Integer indice_campionato;
-    private DatabaseHelper db;
 
     private Activity context;
 

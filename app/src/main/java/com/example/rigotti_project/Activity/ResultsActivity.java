@@ -13,20 +13,28 @@ import android.widget.ListView;
 import com.example.rigotti_project.Championship.Campionato;
 import com.example.rigotti_project.Championship.Pilota;
 import com.example.rigotti_project.R;
-import com.example.rigotti_project.Rankings.CustomTeamRankingListView;
 import com.example.rigotti_project.Support.Utili;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione dei risultati piloti e team ad una gara
+// Consente di le due ListView contenenti i risultati
+// ---------------------------------
+// ---------------------------------
+
 public class ResultsActivity extends AppCompatActivity {
 
-    private ListView risultati_piloti, risultati_team;
-
+    // Variabili
+    private Campionato camp;
     private Integer indice_campionato;
 
-    private ArrayList<String> nomi, auto, team, t_team, t_auto;
+    // View
+    private ListView risultati_piloti, risultati_team;
 
-    private Campionato camp;
+    // Per ListView
+    private ArrayList<String> nomi, auto, team, t_team, t_auto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +47,7 @@ public class ResultsActivity extends AppCompatActivity {
         t_auto = new ArrayList<>();
         t_team = new ArrayList<>();
 
-        //Setto indice_campionato e indice_campionato
+        // Setto indice_campionato e indice_campionato presi dell'intent
         // region CHECK INTENT
         Intent i = getIntent();
         if (!i.hasExtra("indice_campionato")) {
@@ -55,32 +63,33 @@ public class ResultsActivity extends AppCompatActivity {
                 startActivity(new_i);
             }
         }
-        // endregion //
+        // endregion
 
         risultati_piloti = (ListView) findViewById(R.id.risultati_piloti);
         risultati_team = (ListView) findViewById(R.id.risultati_team);
 
+        // Carico dati dal salvataggio in locale
         camp = Utili.listaCampionati.getCampionato(indice_campionato);
 
+        // Popolo ArrayList per la creazione della ListView customizzata
         for (int j = 0; j < camp.getPiloti().size(); j++) {
             Pilota p = camp.getPilota(j);
-            if(!team.contains(p.getTeam())){
+            if (!team.contains(p.getTeam())) {
                 t_team.add(p.getTeam());
                 t_auto.add(p.getAuto());
             }
             nomi.add(p.getNome());
             auto.add(p.getAuto());
             team.add(p.getTeam());
-
         }
 
-        CustomPilotResultsListView c1 = new CustomPilotResultsListView(this,nomi, team, auto);
+        // Creo e visualizzo ListView customizzata piloti
+        CustomPilotResultsListView c1 = new CustomPilotResultsListView(this, nomi, team, auto);
         risultati_piloti.setAdapter(c1);
 
+        // Creo e visualizzo ListView customizzata team
         CustomTeamResultsListView c2 = new CustomTeamResultsListView(this, t_team, t_auto);
         risultati_team.setAdapter(c2);
-
-
     }
 
     // region IMPORTO MENU

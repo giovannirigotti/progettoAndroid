@@ -12,10 +12,20 @@ import android.widget.EditText;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la registrazione di un nuovo utente
+// Permette inserimento del nome, cognome, email, password e data di nascita
+// ---------------------------------
+// ---------------------------------
+
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText nome, cognome, email, password, conferma, data;
+    // Variabili
     private String _nome, _cognome, _email, _password, _conferma, _data;
+
+    // View
+    private EditText nome, cognome, email, password, conferma, data;
     private Button btn_procedi;
 
     @Override
@@ -35,8 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
         btn_procedi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //controllo dati inseriti
 
+                //controllo dati inseriti dall'utente
                 if (checkRegisterData()) {
                     //se i dati sono ok li passo alla prossima activity
                     //tramite intent.putExtra
@@ -55,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    // Metodo per controllare la correttezza dei dati immessi dall'utente
     public boolean checkRegisterData() {
 
         _nome = nome.getText().toString();
@@ -65,7 +76,6 @@ public class RegisterActivity extends AppCompatActivity {
         _data = data.getText().toString();
 
         String err;
-
 
         if (_nome.isEmpty() || _cognome.isEmpty() || _email.isEmpty() || _password.isEmpty() || _conferma.isEmpty() || _data.isEmpty()) {
             err = "Tutti i campi sono obbligatori, non dimenticarne manco uno";

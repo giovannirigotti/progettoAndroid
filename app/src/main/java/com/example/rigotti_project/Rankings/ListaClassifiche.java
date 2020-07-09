@@ -1,7 +1,5 @@
 package com.example.rigotti_project.Rankings;
 
-import com.example.rigotti_project.Championship.ListaCampionati;
-
 import java.util.ArrayList;
 
 public class ListaClassifiche {

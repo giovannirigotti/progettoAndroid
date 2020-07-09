@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +16,13 @@ import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Random;
+
+// ---------------------------------
+// ---------------------------------
+// Classe per la creazione di una ListView personalizzata
+// Nello specifico crea una ListView per visualizzare la galleria fotografica
+// ---------------------------------
+// ---------------------------------
 
 public class CustomGalleryList extends ArrayAdapter<String> {
 

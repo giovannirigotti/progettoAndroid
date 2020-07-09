@@ -11,11 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.rigotti_project.R;
-import com.example.rigotti_project.Rankings.CustomPilotRankingListView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
+// ---------------------------------
+// ---------------------------------
+// Classe per la creazione di una ListView personalizzata
+// Nello specifico crea una ListView per visualizzare i risultati dei piloti ad una gara
+// ---------------------------------
+// ---------------------------------
 
 public class CustomPilotResultsListView extends ArrayAdapter<String> {
 

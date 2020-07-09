@@ -1,5 +1,11 @@
 package com.example.rigotti_project.Support;
 
+// ---------------------------------
+// ---------------------------------
+// Classe di supporto per il salvataggio dei dati in locale.
+// ---------------------------------
+// ---------------------------------
+
 public class PersonalData {
     //dati utente;
     private static Integer ID;

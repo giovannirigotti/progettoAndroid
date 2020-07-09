@@ -32,7 +32,7 @@ import com.example.rigotti_project.Support.Utili;
 
 // ---------------------------------
 // ---------------------------------
-// Activity Home: il fulcro dell'app.
+// Activity Home: il fulcro dell'app
 // L'utente appena loggato visualizzerà la propria foto profilo e i propri dati principali
 // Consente inoltre di andare direttamente alla lista dei campionati e alla activity per testare le notifiche
 // Il servizio per notificare l'utente viene avviato da questa Activity (prima aperta dopo il login)

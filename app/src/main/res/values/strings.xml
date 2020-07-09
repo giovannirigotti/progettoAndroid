@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Title</string>
+    <string name="app_name">Rigotti Project</string>
     <string name="label_login_text">Effettua il login</string>
     <string name="label_registrazione_text">Non hai un account?\nRegistrati!</string>
     <string name="btn_login_text">Login</string>

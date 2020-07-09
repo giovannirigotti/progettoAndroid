@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,13 +23,24 @@ import com.example.rigotti_project.Support.Utili;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione/"gestione" del campionato
+// Consente di visualizzare logo, nome e link al forum del campionato
+// Consente di passare al calendario del campionato
+// Consente di passare alla lista dei piloti iscritti al campionato
+// Consente di passare alle regole/impostazioni del campionato
+// Consente di passare alla classifica piloti e team del campionato
+// Consente di gestire l'iscrizione al campionato
+// ---------------------------------
+// ---------------------------------
+
 public class ChampionshipActivity extends AppCompatActivity {
 
     private Integer indice_campionato;
 
+    // DB
     private DatabaseHelper db;
-
-    private String json;
 
     //TextView
     private TextView tv_nome;
@@ -51,8 +63,6 @@ public class ChampionshipActivity extends AppCompatActivity {
         campionato = new Campionato();
         db = new DatabaseHelper(this);
 
-        json = Utili.getCampionati(this);
-
         Intent i = getIntent();
 
         // Controllo che l'intent sia stato passato correttamente
@@ -72,7 +82,7 @@ public class ChampionshipActivity extends AppCompatActivity {
         }
         // endregion
 
-        //prendo campionato dalla lista campionati comune
+        //prendo campionato dalla lista campionati caricata in locale
         campionato = Utili.listaCampionati.getCampionato(indice_campionato);
 
         //imposto le view
@@ -91,7 +101,7 @@ public class ChampionshipActivity extends AppCompatActivity {
         //"popolo" le view
         tv_nome.setText(campionato.getNome());
         iv_logo.setImageResource(campionato.getId_logo());
-        String forum = "www.simulator.it/forum/" + campionato.getNome();
+        String forum = "www.simulator.it/forum/" + campionato.getNome().replace(" ","_");
         tv_forum.setText(forum);
 
         // region LISTENER BOTTONI
@@ -135,12 +145,10 @@ public class ChampionshipActivity extends AppCompatActivity {
 
         //GESTIONE ISCRIZIONE
 
-        //controllo se sono iscritto
-        //ALTERNATIVA: USO Funzione isMemeber su DatabaseHelper tanto gli account eliminabili sono solo quelli nuovi (Non quelli sul file json)
+        //controllo se l'utente è iscritto
         Integer indice_iscritto = Utili.isMember(indice_campionato);
         if(indice_iscritto >= 0){
             //se sono iscritto setto bottone per cancellare l'iscrizione
-            //Utili.doToast(this,"MEMBRO");
             btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorRed));
             btn_iscriviti.setText("Cancella iscrizione");
             btn_iscriviti.setOnClickListener(new View.OnClickListener() {
@@ -149,18 +157,15 @@ public class ChampionshipActivity extends AppCompatActivity {
                     //cancello iscrizione
                     db.deleteEntry(indice_campionato);
                     Utili.doToast(ChampionshipActivity.this,"ISCRIZIONE CANCELLATA CON SUCCESSO!");
-                    //NEL FRATTEMPO BLOCCO
-                    //ALTERNATIVA: RICARICO LA PAGINA!
+                    //RICARICO LA PAGINA
                     Intent x = new Intent(ChampionshipActivity.this, ChampionshipActivity.class);
                     x.putExtra("position", indice_campionato);
                     startActivity(x);
                 }
             });
-
         }
         else{
             //se non sono iscritto setto bottone per iscrivermi
-            //Utili.doToast(this,"NON MEMBRO");
             btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
             btn_iscriviti.setText("Iscriviti");
             btn_iscriviti.setOnClickListener(new View.OnClickListener() {
@@ -170,28 +175,11 @@ public class ChampionshipActivity extends AppCompatActivity {
                     Intent z = new Intent(ChampionshipActivity.this, EnrollActivity.class);
                     z.putExtra("indice_campionato", indice_campionato);
                     startActivity(z);
-                    //NEL FRATTEMPO BLOCCO
-                    //ALTERNATIVA: RICARICO LA PAGINA!
-                    btn_iscriviti.setBackgroundTintList(getResources().getColorStateList(R.color.colorPrimary));
-                    btn_iscriviti.setEnabled(false);
                 }
             });
 
         }
 
-    }
-
-    //Controllo se sono iscritto al campionato
-    private Integer imMember(){
-        ArrayList<Pilota> iscritti = campionato.getPiloti();
-        String my_name = PersonalData.getNOME() + " "+ PersonalData.getCOGNOME();
-        for (int i = 0; i < iscritti.size(); i++){
-            Pilota p = iscritti.get(i);
-            if(p.getNome().equals(my_name)){
-                return i;
-            }
-        }
-        return -1;
     }
 
     // region IMPORTO MENU

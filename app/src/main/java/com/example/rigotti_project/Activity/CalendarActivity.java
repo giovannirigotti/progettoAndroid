@@ -23,6 +23,14 @@ import com.example.rigotti_project.Support.Utili;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione della lista delle gare (calendario) di un determinato campionato
+// Consente di visualizzare circuito e data della gara.
+// Consente premendo su una gara di passare alla Activity della gara corrispondente
+// ---------------------------------
+// ---------------------------------
+
 public class CalendarActivity extends AppCompatActivity {
 
     private Integer indice_campionato;
@@ -30,12 +38,13 @@ public class CalendarActivity extends AppCompatActivity {
     //Campionato
     private Campionato campionato;
 
+    //View
     private ListView lv;
     private TextView title;
 
+    //Per ListView
     private ArrayList<String> date, circuiti;
     private ArrayList<Integer> sequenze;
-
     private ArrayList<Gara> calendario;
 
     @Override
@@ -51,6 +60,8 @@ public class CalendarActivity extends AppCompatActivity {
         title = (TextView) findViewById(R.id.calendar_title);
         title.setText("Calendario");
 
+        // Controllo che nell'intent ricevuto ci sia l'indice del campionato (id) per
+        // poter caricare e visualizzare i dati corretti
         Intent i = getIntent();
         if (!i.hasExtra("indice_campionato")) {
             Utili.doToast(this, "Dati non disponibili.");
@@ -66,13 +77,16 @@ public class CalendarActivity extends AppCompatActivity {
             startActivity(new_i);
         }
 
+        // Prendo dati campionato e calendario di quest'ultimo
         campionato = Utili.listaCampionati.getCampionato(indice_campionato);
         calendario = campionato.getCalendario();
 
         setTitle(Utili.listaCampionati.getCampionato(indice_campionato).getNome());
 
+        // Popolo gli ArrayList dichiarati in precedenza per passarli e visualizzarli nella ListView
         getRacesData();
 
+        // Creo e visualizzo la ListView customizzata
         lv = (ListView) findViewById(R.id.lista_gare);
         CustomCalendarListView custom = new CustomCalendarListView(this, circuiti, sequenze, date);
         lv.setAdapter(custom);
@@ -81,6 +95,7 @@ public class CalendarActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Vado alla Activity della gara corrispondente a quella premuta dall'utente
                 OpenGara(CalendarActivity.this, position);
             }
         });
@@ -88,14 +103,14 @@ public class CalendarActivity extends AppCompatActivity {
 
     public void getRacesData() {
         Gara g;
-        Log.e("POPOLAZIONE", "Start");
+        //Log.e("POPOLAZIONE", "Start");
         for (int i = 0; i < calendario.size(); i++) {
             g = campionato.getGara(i);
             sequenze.add(g.getSeq());
             date.add(g.getData());
             circuiti.add(g.getCircuito());
         }
-        Log.e("POPOLAZIONE", "End");
+        //Log.e("POPOLAZIONE", "End");
     }
 
     public void OpenGara(Activity context, int position) {

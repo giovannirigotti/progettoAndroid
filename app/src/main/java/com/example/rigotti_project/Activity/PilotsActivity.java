@@ -24,15 +24,26 @@ import com.example.rigotti_project.Support.Utili;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione della lista dei piloti iscritti ad un determinato campionato
+// Consente di visualizzare nome del pilota.
+// Consente premendo su un pilota di visualizzare ulteriori info quali auto e team del pilota
+// ---------------------------------
+// ---------------------------------
+
 public class PilotsActivity extends AppCompatActivity {
 
     private Integer indice_campionato;
 
-    //Campionato
+    // Campionato
     private Campionato campionato;
+
+    // Per ListView
     private ArrayList<String> nomi, auto, team;
     private ArrayList<Pilota> piloti;
 
+    // View
     private ListView lv;
     private TextView title;
 
@@ -50,15 +61,14 @@ public class PilotsActivity extends AppCompatActivity {
         auto = new ArrayList<>();
         team = new ArrayList<>();
 
+        // Controllo di avere l'id del campionato sul quale "lavorare"
         Intent i = getIntent();
         if (!i.hasExtra("indice_campionato")) {
             Utili.doToast(this, "Dati non disponibili.");
             Intent new_i = new Intent(this, HomeActivity.class);
             startActivity(new_i);
         }
-
         indice_campionato = i.getIntExtra("indice_campionato", -1);
-
         if (indice_campionato == -1) {
             Utili.doToast(this, "Errore caricamento dati.");
             Intent new_i = new Intent(this, HomeActivity.class);
@@ -67,14 +77,16 @@ public class PilotsActivity extends AppCompatActivity {
 
         setTitle(Utili.listaCampionati.getCampionato(indice_campionato).getNome());
 
-
+        // Prendo dati salvati localmente
         campionato = Utili.listaCampionati.getCampionato(indice_campionato);
         piloti = campionato.getPiloti();
 
+        // Popolo ArrayList da passare al Customizzatore della ListView
         getPilotsData();
 
         Utili.doToast(this, "Premi su un pilota iscritto per vedere più informazioni!");
 
+        // Creo e visualizzo ListView customizzata piloti
         lv = (ListView) findViewById(R.id.lista_piloti);
         CustomPilotsListView custom = new CustomPilotsListView(this, nomi, auto, team);
         lv.setAdapter(custom);
@@ -82,7 +94,7 @@ public class PilotsActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //view info
+                //view pilot info
                 showPilotDialog(view, position);
             }
         });
@@ -120,10 +132,9 @@ public class PilotsActivity extends AppCompatActivity {
     }
 
 
-
     public void getPilotsData() {
         Pilota p;
-        Log.e("POPOLAZIONE", "Start");
+        //Log.e("POPOLAZIONE", "Start");
         for (int i = 0; i < piloti.size(); i++) {
             p = piloti.get(i);
             nomi.add(p.getNome());
@@ -131,7 +142,7 @@ public class PilotsActivity extends AppCompatActivity {
             team.add(p.getTeam());
             //Log.e("Pilota", p.getNome() + p.getAuto() + p.getTeam());
         }
-        Log.e("POPOLAZIONE", "End");
+        //Log.e("POPOLAZIONE", "End");
     }
 
     // region IMPORTO MENU

@@ -24,6 +24,13 @@ import com.example.rigotti_project.Support.Utili;
 
 import java.io.IOException;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la registrazione di un nuovo utente
+// Permette inserimento del numero di gara, della nazione, del circ. preferito e quello odiato, dell'auto preferita e dell'immagine profilo
+// ---------------------------------
+// ---------------------------------
+
 public class EndRegisterActivity extends AppCompatActivity {
 
     //Database
@@ -41,7 +48,7 @@ public class EndRegisterActivity extends AppCompatActivity {
 
     //Stringhe / Ineteri
     private Integer _numero;
-    private String _s_numero,_nazione, _circuito_preferito, _circuito_odiato, _auto, _foto;
+    private String _s_numero, _nazione, _circuito_preferito, _circuito_odiato, _auto, _foto;
     private String _nome, _cognome, _email, _pass, _data;
 
 
@@ -70,6 +77,7 @@ public class EndRegisterActivity extends AppCompatActivity {
 
         profile_image = (ImageView) findViewById(R.id.profile_image);
 
+        // BOTTONE PER CARICARE L'IMMAGINE
         btn_immagine.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,19 +110,17 @@ public class EndRegisterActivity extends AppCompatActivity {
                     //salva dati sul DB;
                     db.addUser(_nome, _cognome, _email, _data, _nazione, _numero, _circuito_preferito, _circuito_odiato, _auto, _foto, _pass);
 
-
                     //Vado al login;
                     Intent i = new Intent(EndRegisterActivity.this, LoginActivity.class);
+                    //Passo email per facilitare/velocciare successivo login del nuovo utente
                     i.putExtra("email", _email);
                     startActivity(i);
-
                 }
             }
         });
-
-
     }
 
+    // Metodo per controllare correttezza dei dati inseriti dall'utente
     public boolean checkEndRegisterData() {
 
         _s_numero = numero.getText().toString().trim();

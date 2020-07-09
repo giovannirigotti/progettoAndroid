@@ -14,14 +14,23 @@ import android.widget.TextView;
 import com.example.rigotti_project.Championship.Campionato;
 import com.example.rigotti_project.Championship.CustomSettingsListView;
 import com.example.rigotti_project.R;
-import com.example.rigotti_project.Rankings.CustomPilotRankingListView;
-import com.example.rigotti_project.Rankings.CustomTeamRankingListView;
 import com.example.rigotti_project.Support.Utili;
 
 import java.util.ArrayList;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione della lista delle regole di un campionato
+// Consente di visualizzare tipo e valore della regola
+// ---------------------------------
+// ---------------------------------
+
 public class SettingsActivity extends AppCompatActivity {
+
+    // Variabili
     private Integer indice_campionato;
+
+    // View
     private ListView lv;
     private TextView title;
 
@@ -34,7 +43,7 @@ public class SettingsActivity extends AppCompatActivity {
         title.setText("Impostazioni");
 
 
-        //Setto indice_campionato
+        // Setto indice_campionato preso dell'intent
         // region CHECK INTENT
         Intent i = getIntent();
         if (!i.hasExtra("indice_campionato")) {
@@ -53,8 +62,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         setTitle(Utili.listaCampionati.getCampionato(indice_campionato).getNome());
 
-
+        // Carico dati dal salvataggio locale
         Campionato campionato = Utili.listaCampionati.getCampionato(indice_campionato);
+
+        // Popolo ArrayList da passare al Customizzatore della ListView
         ArrayList<String> tipi = new ArrayList<>();
         ArrayList<String> valori = new ArrayList<>();
         for (int j = 0; j < campionato.getImpostazioni().size(); j++) {
@@ -62,6 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
             valori.add(campionato.getImpostazioni().get(j).getValore());
         }
 
+        // Creo e visualizzo ListView customizzata impostazioni
         lv = (ListView) findViewById(R.id.lista_impostazioni);
         CustomSettingsListView custom = new CustomSettingsListView(SettingsActivity.this, tipi, valori);
         lv.setAdapter(custom);
