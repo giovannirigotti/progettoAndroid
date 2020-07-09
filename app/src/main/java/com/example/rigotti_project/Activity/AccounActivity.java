@@ -31,6 +31,16 @@ import com.example.rigotti_project.Support.Utili;
 
 import java.io.IOException;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione dei dati personali dell'utente.
+// Consente di visualizzare nome, cognome, email, data di nascita e nazionalità
+// Consente di visualizzare e modificare la propria immagine profilo
+// Consente l'aggiornamento della password
+// Consente infine l'accesso alla Activity "ManageDataActivity"
+// ---------------------------------
+// ---------------------------------
+
 public class AccounActivity extends AppCompatActivity {
 
     //Database

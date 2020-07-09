@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -31,6 +30,15 @@ import com.example.rigotti_project.Support.PersonalData;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 
+// ---------------------------------
+// ---------------------------------
+// Activity Home: il fulcro dell'app.
+// L'utente appena loggato visualizzerà la propria foto profilo e i propri dati principali
+// Consente inoltre di andare direttamente alla lista dei campionati e alla activity per testare le notifiche
+// Il servizio per notificare l'utente viene avviato da questa Activity (prima aperta dopo il login)
+// I dati presenti sul json insieme a quelli salvati su un DB sqlite vengono caricati in locale per mantenere lo stato
+// ---------------------------------
+// ---------------------------------
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -50,23 +58,25 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         setTitle("Home");
 
-        //Carico i dati dal JSON
+        // CARICO I DATI DAI JSON
+        // Da qui vengono presi anche i dati sul DB per non perdere le modifiche
+        // effettuate nelle precedenti sessioni
         Utili.readCampionati(this);
         Utili.readClassifiche(this);
 
-        //Avvio servizio di notifica
+        // AVVIO SERVIZIO DI NOTIFICA
         NotifyTask nt = new NotifyTask();
         nt.execute();
 
 
-        //Imposto immagine
+        // Imposto immagine
         profile_image = (ImageView) findViewById(R.id.home_profile_image);
         String foto = PersonalData.getFOTO();
         bitmap = ImageManager.StringToBitMap(foto);
         profile_image.setImageBitmap(bitmap);
 
 
-        //Imposto dati utente
+        // Imposto dati utente
         nome = (TextView) findViewById(R.id.home_nome);
         nazione = (TextView) findViewById(R.id.home_nazione);
         numero = (TextView) findViewById(R.id.home_numero);
@@ -74,12 +84,11 @@ public class HomeActivity extends AppCompatActivity {
         nazione.setText(PersonalData.getNAZIONE());
         numero.setText(PersonalData.getNUMERO().toString());
 
-        //Imposto bottoni
+        // Imposto bottoni
         campionati = (Button) findViewById(R.id.btn_home_campionati);
         modifica = (Button) findViewById(R.id.btn_home_modifica);
 
-
-
+        // Creo i Listener per i bottoni
         campionati.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +108,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    // region IMPORTO MENU
+
     // AGGIUNGO MENU ALLA ACTIVITY
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -114,6 +125,11 @@ public class HomeActivity extends AppCompatActivity {
         return (Utili.setMenu(HomeActivity.this,item)) ? true : super.onOptionsItemSelected(item);
     }
 
+    //endregion
+
+    // Classe asincrona per svolgere in background un servizio in grado
+    // di percepire quando viene svolta una modifica e di allertare di
+    // conseguenza l'utente.
     class NotifyTask extends AsyncTask<Void, Void, Void> {
 
         private Context context;
@@ -130,11 +146,12 @@ public class HomeActivity extends AppCompatActivity {
             Log.e("NOTIFICHE", "Notifier listener is starting");
         }
 
+        // Metodo per creare la notifica "personalizzata" (titolo e testo)
         private void createNotification(String title, String text, Context c) {
-            Log.w("TEST", "OK");
+            Log.w("NOTIFICA", "INIZIO");
             //Build the notification using Notification.Builder
             NotificationManager notification_manager = (NotificationManager) c.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {           // Se la versione in utilizzo è recenete devo creare un NotificationChannel
                 String chanel_id = "3000";
                 CharSequence name = "Channel Edit Data";
                 String description = "Notifiche modifica dei dati";
@@ -147,13 +164,14 @@ public class HomeActivity extends AppCompatActivity {
                 notification_manager.createNotificationChannel(mChannel);
                 notification_builder = new NotificationCompat.Builder(c, chanel_id);
             } else {
-                notification_builder = new NotificationCompat.Builder(c);
+                notification_builder = new NotificationCompat.Builder(c);     // Altrimenti mi basta il NotificationBuilder
             }
+            // Creo PendingIntent per mandare l'utente alla activity corretta quando preme sulla notifica ricevuta
             Intent i = new Intent(HomeActivity.this, SettingsActivity.class);
             i.putExtra("indice_campionato", Utili.CAMP);
             PendingIntent pi = PendingIntent.getActivity(HomeActivity.this, 0, i, 0);
 
-
+            // Creo notifica vera e propria
             notification_builder.setSmallIcon(R.drawable.ic_notifica)
                     .setContentTitle(title)
                     .setContentText(text)
@@ -162,9 +180,12 @@ public class HomeActivity extends AppCompatActivity {
                     .setContentIntent(pi);
 
             notification_manager.notify(id, notification_builder.build());
-            Log.w("TEST", "OK");
+            Log.w("NOTIFICA", "FINE, tutto ok.");
         }
 
+        // Servizio in background vero e proprio
+        // Logica:  se viene svolta una modifica allora una variabile di stato Utili.MODIFICA viene modificata.
+        //          il servizio se ne accorge e crea la notifica riportando Utili.MODIFICA a '0' (nessuna modifica da notificare)
         @Override
         protected Void doInBackground(Void... arg0) {
             try {

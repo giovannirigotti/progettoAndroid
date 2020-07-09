@@ -17,6 +17,14 @@ import com.example.rigotti_project.Support.PersonalData;
 import com.example.rigotti_project.R;
 import com.example.rigotti_project.Support.Utili;
 
+// ---------------------------------
+// ---------------------------------
+// Activity per la visualizzazione dei dati di gioco dell'utente.
+// Consente di visualizzare e modificare numero di gara, circuito preferito, circuito odiato e auto preferita
+// Consente di visualizzare e modificare la propria immagine profilo
+// ---------------------------------
+// ---------------------------------
+
 public class ManageDataActivity extends AppCompatActivity {
 
     //Database
