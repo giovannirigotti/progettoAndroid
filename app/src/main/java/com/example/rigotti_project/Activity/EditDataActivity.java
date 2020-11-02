@@ -48,6 +48,9 @@ public class EditDataActivity extends AppCompatActivity implements AdapterView.O
         spinner = (Spinner) findViewById(R.id.spinner_campionati);
         lv = (ListView) findViewById(R.id.lista_edit_impostazioni);
 
+        //Setto campionato per mandare notifica
+        camp_to_edit = Utili.listaCampionati.getCampionato(0);
+
         for (int i = 0; i < size; i++) {
             nomi_campionati[i]=Utili.listaCampionati.getCampionato(i).getNome();
         }

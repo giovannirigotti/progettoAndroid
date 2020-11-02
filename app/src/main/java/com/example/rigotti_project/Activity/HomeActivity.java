@@ -167,8 +167,7 @@ public class HomeActivity extends AppCompatActivity {
                 notification_builder = new NotificationCompat.Builder(c);     // Altrimenti mi basta il NotificationBuilder
             }
             // Creo PendingIntent per mandare l'utente alla activity corretta quando preme sulla notifica ricevuta
-            Intent i = new Intent(HomeActivity.this, SettingsActivity.class);
-            i.putExtra("indice_campionato", Utili.CAMP);
+            Intent i = new Intent(HomeActivity.this, ChampionshipListActivity.class);
             PendingIntent pi = PendingIntent.getActivity(HomeActivity.this, 0, i, 0);
 
             // Creo notifica vera e propria

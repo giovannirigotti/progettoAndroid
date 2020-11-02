@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -52,6 +53,7 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(new_i);
         } else {
             indice_campionato = i.getIntExtra("indice_campionato", -1);
+            Log.w("IndiceRicevuto:", String.valueOf(indice_campionato));
             if (indice_campionato == -1) {
                 Utili.doToast(this, "Campionato non disponibile.");
                 Intent new_i = new Intent(this, HomeActivity.class);
